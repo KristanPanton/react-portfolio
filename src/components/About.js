@@ -1,30 +1,23 @@
-import { useEffect } from "react";
 import {
-  MapPinIcon,
-  AtSymbolIcon,
-  CalendarIcon,
   AcademicCapIcon,
-  BriefcaseIcon,
+  BriefcaseIcon
 } from "@heroicons/react/20/solid";
 import AOS from "aos";
 import "aos/dist/aos.css";
-const features = [
-  {
-    name: "Age:",
-    description: "18 years old",
-    icon: CalendarIcon,
-  },
-  {
-    name: "Email:",
-    description: "name@example.com",
-    icon: AtSymbolIcon,
-  },
-  {
-    name: "Location:",
-    description: "India, Earth",
-    icon: MapPinIcon,
-  },
-];
+import { useEffect } from "react";
+
+// const features = [
+//   {
+//     name: "Email:",
+//     description: "kristan.e.panton@pace.edu",
+//     icon: AtSymbolIcon,
+//   },
+//   {
+//     name: "Location:",
+//     description: "NY 10562",
+//     icon: MapPinIcon,
+//   },
+// ];
 
 export default function About() {
   useEffect(() => {
@@ -44,23 +37,16 @@ export default function About() {
                 About Me
               </p>
               <p className="mt-6 text-lg leading-8" data-aos="fade-right">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-                suscipit lobortis nisi, consequat semper lacus tempor sit amet.
-                Sed elit orci, pretium sed velit sit amet, venenatis pretium
-                magna. Nam pharetra dictum urna, non vestibulum mauris vulputate
-                ut. Sed eros nisi, dapibus vitae consequat non, mollis et
-                tortor. Maecenas bibendum nunc eu cursus maximus. Fusce
-                ultricies ornare neque, vel varius libero euismod eget. Nulla
-                sodales blandit lacus, id maximus quam interdum in. Morbi eu
-                velit ut mi semper sollicitudin finibus aliquam nisi.
-                Pellentesque habitant morbi tristique senectus et netus et
-                malesuada fames ac turpis egestas. Ut accumsan faucibus urna vel
-                placerat. Donec euismod dui enim, tincidunt suscipit mauris
-                lacinia vel. Fusce eget risus eget leo euismod porta. Aliquam
-                dapibus sapien vitae eros pulvinar, in auctor ligula porta. Nam
-                ac porttitor risus, nec blandit nulla. Nam erat erat, venenatis
-                quis scelerisque nec, rhoncus id mi. Suspendisse molestie nibh
-                purus, quis semper tellus pulvinar eget.
+                Hello, I'm Kristan Panton, a Computer Science student at Pace
+                University with a concentration in Software Engineering. I have
+                a passion for developing innovative solutions and have worked on
+                various projects ranging from mobile apps to full-stack web
+                applications. My technical skills include programming languages
+                like C, C++, Python, Java, and JavaScript, and I am proficient
+                in frameworks and technologies such as React Native, Supabase,
+                and MongoDB. I am also experienced in using tools like VS Code,
+                Git, and Unity. I am committed to continuous learning and am
+                always looking for new challenges to improve my skills.
               </p>
             </div>
           </div>
@@ -71,7 +57,7 @@ export default function About() {
         >
           <img
             className="w-[38rem] ring-2 ring-base-300 max-w-none rounded-xl shadow-xl sm:w-[57rem]"
-            src="https://fastly.picsum.photos/id/473/5000/3333.jpg?hmac=OrrE0aUqLbLCJ9PAlSn0dIRHjOnuuuev9IjuO3PGZf8"
+            src="/about-pic.jpg"
             alt="Person"
           />
         </div>
@@ -89,13 +75,17 @@ export default function About() {
                   Experience
                 </h2>
                 <p className="mt-3 list-item list-inside">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Full Stack Developer at Temps Are Us, Inc. - Developed a job
+                  listing application using React Native and Supabase.
                 </p>
                 <p className="mt-3 list-item list-inside">
-                  Vestibulum vitae augue sit amet ex laoreet euismod sed eu dui.
+                  Licensed Salesperson at Weichert Realtors - Led property
+                  showings and optimized client communication.
                 </p>
                 <p className="mt-3 list-item list-inside">
-                  Fusce et leo nec elit mollis sollicitudin.
+                  Research Intern at Louis Stokes Alliances for Minority
+                  Participation - Developed a Python-based GUI for diagnosing
+                  manufacturing defects.
                 </p>
               </div>
               <div
@@ -106,21 +96,20 @@ export default function About() {
                   className="h-5 w-5 mx-auto"
                   aria-hidden="true"
                 />
-                <h2 className=" text-2xl text-center font-bold tracking-tigh">
+                <h2 className="text-2xl text-center font-bold tracking-tigh">
                   Education
                 </h2>
                 <p className="mt-3 list-item list-inside">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Bachelor of Science in Computer Science, Pace University,
+                  Dean’s List, Minor in Mathematics.
                 </p>
                 <p className="mt-3 list-item list-inside">
-                  Vestibulum vitae augue sit amet ex laoreet euismod sed eu dui.
-                </p>
-                <p className="mt-3 list-item list-inside">
-                  Fusce et leo nec elit mollis sollicitudin.
+                  Relevant Coursework: Web Authoring & Digital Media, Data
+                  Structures & Algorithms, Software Engineering.
                 </p>
               </div>
             </div>
-            <dl
+            {/* <dl
               className="mt-10 space-y-8 text-base leading-7 lg:max-w-none"
               data-aos="fade-right"
             >
@@ -136,7 +125,7 @@ export default function About() {
                   <dd className="inline">{feature.description}</dd>
                 </div>
               ))}
-            </dl>
+            </dl> */}
           </div>
         </div>
       </div>

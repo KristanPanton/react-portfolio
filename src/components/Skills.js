@@ -5,60 +5,56 @@ import "aos/dist/aos.css";
 
 const frontend = [
   {
-    name: "HTML/CSS",
+    name: "JavaScript/TypeScript",
+    value: 85,
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "React Native",
     value: 80,
     icon: CheckCircleIcon,
   },
   {
-    name: "JavaScript",
-    value: 70,
+    name: "Web Development",
+    value: 85,
     icon: CheckCircleIcon,
   },
   {
-    name: "React",
-    value: 80,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "Next.js",
-    value: 60,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "TailwindCSS",
+    name: "Git/Version Control",
     value: 80,
     icon: CheckCircleIcon,
   },
 ];
+
 const backend = [
   {
-    name: "NodeJS",
-    value: 30,
+    name: "Python",
+    value: 90,
     icon: CheckCircleIcon,
   },
   {
-    name: "Python",
+    name: "C/C++",
+    value: 85,
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "Java",
+    value: 80,
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "MongoDB/Supabase",
     value: 75,
     icon: CheckCircleIcon,
   },
   {
-    name: "MySQL",
-    value: 50,
+    name: "Unity/C#",
+    value: 75,
     icon: CheckCircleIcon,
   },
   {
-    name: "APIs",
-    value: 20,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "MongoDB",
-    value: 40,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "GraphQL",
-    value: 30,
+    name: "Firebase/Express",
+    value: 70,
     icon: CheckCircleIcon,
   },
 ];

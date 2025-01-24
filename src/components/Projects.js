@@ -1,51 +1,80 @@
-import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useEffect, useState } from "react";
 
-const projects = [
+const allProjects = [
   {
     id: 1,
-    name: "Sprinkles",
-    href: "#",
-    imageSrc:
-      "https://fastly.picsum.photos/id/23/3887/4899.jpg?hmac=2fo1Y0AgEkeL2juaEBqKPbnEKm_5Mp0M2nuaVERE6eE",
-    used: "ReactJS, TailwindCSS",
-    description: "A restaurant website.",
+    name: "Get that A!",
+    href: "https://kristanpanton.itch.io/get-that-a",
+    imageSrc: "/get-that-a-screenshot (Custom).png",
+    used: "Unity, C#",
+    description:
+      "First project for CS-321 - Intro to Game Programming. Simple platformer with wall jumping.",
   },
   {
     id: 2,
-    name: "Paper Bag",
-    href: "#",
-    imageSrc:
-      "https://fastly.picsum.photos/id/3/5000/3333.jpg?hmac=GDjZ2uNWE3V59PkdDaOzTOuV3tPWWxJSf4fNcxu4S2g",
-    used: "ReactJS, TailwindCSS",
-    description: "An online shopping website.",
+    name: "Color Match!",
+    href: "https://kristanpanton.itch.io/color-match",
+    imageSrc: "/colormatch.png",
+    used: "Unity, C#",
+    description:
+      "Match the balls with their corresponding colors. WASD to move. Power up coin lets you grab (Press space).",
   },
   {
     id: 3,
-    name: "My Blogs",
-    href: "#",
-    imageSrc:
-      "https://fastly.picsum.photos/id/447/1280/853.jpg?hmac=4DUUCOsHRIoYbNrPRYEUHOW7wCjM7TROrTrYFivtdPw",
-
-    used: "ReactJS, TailwindCSS",
-    description: "A personal blogging website.",
+    name: "Elby",
+    href: "",
+    imageSrc: "/elby (Custom).png",
+    used: "React Native, Supabase, Clerk",
+    description:
+      "Mobile app for tracking mileage, logging expenses, and ensuring IRS compliance for short-term rental owners.",
   },
   {
     id: 4,
-    name: "Canopy",
-    href: "#",
-    imageSrc:
-      "https://fastly.picsum.photos/id/366/4000/3000.jpg?hmac=zphhHOH9ofToN2jNHd8z-nc98NrBd8y2okWXEXetLDg",
-    used: "ReactJS, TailwindCSS",
-    description: "An online educational website.",
+    name: "Killer Night",
+    href: "https://kristanpanton.itch.io/killer-night",
+    imageSrc: "/KillerNightScreenshot (Custom).png",
+    used: "Unity, C#",
+    description:
+      "Find the skull in each level and escape. It's gonna be a killer night.",
+  },
+  {
+    id: 5,
+    name: "My Digital Garden",
+    href: "https://kristans-garden.vercel.app",
+    imageSrc: "/kristans-garden (Custom).png",
+    used: "Next.js, React",
+    description: "Just a place where I'll be posting notes.",
+  },
+  {
+    id: 6,
+    name: "Sensor Monitoring System",
+    href: "",
+    imageSrc: "/sensor-monitor.png",
+    used: "Python, NumPy, Discord API",
+    description:
+      "Automated system tracking environmental data from IoT devices with real-time anomaly detection and alerts.",
+  },
+  {
+    id: 7,
+    name: "The Playgrounds",
+    href: "",
+    imageSrc: "/playgrounds.png",
+    used: "Unity, C#",
+    description:
+      "Pastel-styled 3D world FPS with rag doll physics, projectile weapons, and enemy waves.",
   },
 ];
 
 export default function Projects() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleProjects = showAll ? allProjects : allProjects.slice(0, 4);
+
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
+
   return (
     <div id="projects">
       <div className="mx-auto max-w-2xl px-6 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
@@ -54,7 +83,7 @@ export default function Projects() {
           Projects
         </p>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {projects.map((project) => (
+          {visibleProjects.map((project) => (
             <div
               key={project.id}
               className="group relative ring-2 ring-base-300 bg-base-200 rounded-2xl shadow-xl"
@@ -83,7 +112,12 @@ export default function Projects() {
           ))}
         </div>
         <div className="mt-16 flex justify-center">
-          <button className="btn btn-outline">View More</button>
+          <button
+            className="btn btn-outline"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Show Less" : "View More"}
+          </button>
         </div>
       </div>
     </div>

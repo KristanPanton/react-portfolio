@@ -1,23 +1,71 @@
-import { useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useEffect, useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
+  const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    emailjs
+      .sendForm(
+        "service_xogytbs",
+        "template_qtv35ai",
+        form.current,
+        "D6ojjnlNo8VaQ2uHZ"
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+          form.current.reset();
+          toast.success("Message sent successfully!", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          toast.error("Failed to send message. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+            theme: "colored",
+          });
+        }
+      )
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <div className="py-24 sm:py-32" id="contact">
+      <ToastContainer />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-xl leading-7">Get in touch</h2>
+          <h2 className="text-xl leading-7">Located in NY</h2>
           <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
-            Contact Me
+            Let's Connect
+          </p>
+          <p className="mt-4 text-lg">
+            Email: kristan.e.panton@pace.edu
+            <br />
+            Phone: (914) 625-7535
           </p>
         </div>
         <form
-          action=""
-          method="POST"
+          ref={form}
+          onSubmit={handleSubmit}
           className="mx-auto mt-16 max-w-xl sm:mt-20"
           data-aos="zoom-in"
         >
@@ -33,8 +81,8 @@ export default function Contact() {
                 <input
                   type="text"
                   required
-                  name="first-name"
-                  id="first-name"
+                  name="first_name"
+                  id="first_name"
                   autoComplete="given-name"
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
                 />
@@ -42,7 +90,7 @@ export default function Contact() {
             </div>
             <div>
               <label
-                htmlFor="last-name"
+                htmlFor="last_name"
                 className="block text-sm font-semibold leading-6"
               >
                 Last name
@@ -51,8 +99,8 @@ export default function Contact() {
                 <input
                   type="text"
                   required
-                  name="last-name"
-                  id="last-name"
+                  name="last_name"
+                  id="last_name"
                   autoComplete="family-name"
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
                 />
@@ -60,7 +108,7 @@ export default function Contact() {
             </div>
             <div className="sm:col-span-2">
               <label
-                htmlFor="email"
+                htmlFor="from_email"
                 className="block text-sm font-semibold leading-6"
               >
                 Email
@@ -69,8 +117,8 @@ export default function Contact() {
                 <input
                   type="email"
                   required
-                  name="email"
-                  id="email"
+                  name="from_email"
+                  id="from_email"
                   autoComplete="email"
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
                 />
@@ -96,8 +144,14 @@ export default function Contact() {
             </div>
           </div>
           <div className="mt-10">
-            <button type="submit" className="btn btn-outline text-sm w-full">
-              Send it
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`btn btn-outline text-sm w-full ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {isSubmitting ? "Sending..." : "Send it"}
             </button>
           </div>
         </form>
