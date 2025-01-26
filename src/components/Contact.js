@@ -58,9 +58,18 @@ export default function Contact() {
             Let's Connect
           </p>
           <p className="mt-4 text-lg">
-            Email: kristan.e.panton@pace.edu
+            Email:{" "}
+            <a
+              href="mailto:kristan.e.panton@pace.edu"
+              className="text-blue-500"
+            >
+              kristan.e.panton@pace.edu
+            </a>
             <br />
-            Phone: (914) 625-7535
+            Phone:{" "}
+            <a href="tel:914-625-7535" className="text-blue-500">
+              914-625-7535
+            </a>
           </p>
         </div>
         <form
