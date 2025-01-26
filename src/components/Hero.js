@@ -11,7 +11,6 @@ import { Link } from "react-scroll";
 import { TypeAnimation } from "react-type-animation";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import GameOfLife from "./GameOfLife";
 
 const navigation = [
   { name: "About Me", id: "about" },
@@ -38,7 +37,6 @@ export default function Hero() {
   };
   return (
     <div className="relative min-h-screen">
-      <GameOfLife />
       <header className="fixed bg-base-300/80 backdrop-blur-sm shadow-2xl shadow-neutral inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
