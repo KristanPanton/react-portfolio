@@ -108,7 +108,7 @@ const CellsInstanced = ({
 };
 
 // Add SnakeGame component
-const SnakeGame = ({ grid, setGrid, COLS, ROWS }) => {
+const SnakeGame = ({ grid, setGrid, COLS, ROWS, score, setScore }) => {
   const [snake, setSnake] = useState(() => {
     const startX = Math.floor(COLS / 2);
     const startY = Math.floor(ROWS / 2);
@@ -156,6 +156,7 @@ const SnakeGame = ({ grid, setGrid, COLS, ROWS }) => {
       newSnake.unshift(head);
 
       if (head[0] === food[0] && head[1] === food[1]) {
+        setScore(prev => prev + 1);
         setFood([
           Math.floor(Math.random() * COLS),
           Math.floor(Math.random() * ROWS),
@@ -179,10 +180,21 @@ const SnakeGame = ({ grid, setGrid, COLS, ROWS }) => {
 
     const gameInterval = setInterval(moveSnake, 150);
     return () => clearInterval(gameInterval);
-  }, [snake, direction, food, COLS, ROWS, setGrid]);
+  }, [snake, direction, food, COLS, ROWS, setGrid, setScore]);
 
   return null;
 };
+
+const Instructions = ({ score }) => (
+  <div className="fixed top-20 left-1/2 -translate-x-1/2 text-center bg-base-300/80 backdrop-blur-sm p-4 rounded-lg shadow-lg z-20">
+    <h2 className="text-2xl font-bold mb-2">Score: {score}</h2>
+    <div className="text-sm">
+      <p>Use arrow keys to control the snake</p>
+      <p>Collect dots to grow</p>
+      <p>Press ESC to exit</p>
+    </div>
+  </div>
+);
 
 // Modify the main GameOfLife component
 const GameOfLife = ({ isDarkMode, gameMode }) => {
@@ -190,6 +202,7 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
   const [scrollRotation, setScrollRotation] = useState(0);
   const animationFrameId = useRef(null);
   const [canvasPosition, setCanvasPosition] = useState({ x: 0, y: 0 });
+  const [score, setScore] = useState(0);
 
   // Constants
   const DESIRED_COLS = 50; // Set desired number of columns
@@ -303,6 +316,7 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
          style={{
            transform: gameMode === 'snake' ? `translate(${canvasPosition.x}px, ${canvasPosition.y}px)` : 'none'
          }}>
+      {gameMode === 'snake' && <Instructions score={score} />}
       <Canvas
         orthographic
         camera={{
@@ -331,7 +345,7 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         />
       </Canvas>
       {gameMode === "snake" && (
-        <SnakeGame grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} />
+        <SnakeGame grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} score={score} setScore={setScore} />
       )}
     </div>
   );
