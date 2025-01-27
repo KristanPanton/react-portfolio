@@ -22,24 +22,24 @@ export default function Skills() {
   }, []);
   
   return (
-    <div className="py-24 sm:py-32" id="skills">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <div className="py-12 sm:py-32" id="skills">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-xl leading-7">Explore my</h2>
-          <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
+          <h2 className="text-lg sm:text-xl leading-7">Explore my</h2>
+          <p className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             Skills
           </p>
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-8 sm:mt-10 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {skills.map((skill) => (
             <div
               key={skill.name}
-              className="bg-base-200 ring-2 ring-base-300 rounded-2xl p-4 shadow-xl"
+              className="bg-base-200 ring-2 ring-base-300 rounded-xl p-3 sm:p-4 shadow-xl"
               data-aos="zoom-in"
             >
-              <div className="flex items-center space-x-3">
-                <skill.icon className="h-6 w-6" aria-hidden="true" />
-                <h3 className="text-lg font-semibold">{skill.name}</h3>
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <skill.icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+                <h3 className="text-base sm:text-lg font-semibold">{skill.name}</h3>
               </div>
             </div>
           ))}

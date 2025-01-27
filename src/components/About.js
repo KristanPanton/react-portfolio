@@ -50,19 +50,19 @@ export default function About() {
         <div className="lg:col-span-2 lg:col-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8">
           <div className="text-base leading-7">
             <div className="mt-10">
-              <h2 className="text-3xl font-bold text-center mb-10">
+              <h2 className="text-3xl font-bold text-center mb-6 sm:mb-10">
                 Professional Timeline
               </h2>
               <div className="relative">
                 {/* Timeline line */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-base-300"></div>
+                <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-1/2 w-1 h-full bg-base-300"></div>
 
                 {/* Timeline items */}
-                <div className="space-y-12">
+                <div className="space-y-8 sm:space-y-12">
                   {/* Full Stack Developer */}
                   <div className="relative" data-aos="fade-right">
-                    <div className="ml-auto w-1/2 pr-10">
-                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                    <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
+                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -87,8 +87,8 @@ export default function About() {
 
                   {/* Licensed Salesperson */}
                   <div className="relative" data-aos="fade-left">
-                    <div className="w-1/2 pl-10">
-                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                    <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
+                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -117,8 +117,8 @@ export default function About() {
 
                   {/* Research Intern */}
                   <div className="relative" data-aos="fade-right">
-                    <div className="ml-auto w-1/2 pr-10">
-                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                    <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
+                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -154,8 +154,8 @@ export default function About() {
 
                   {/* Education */}
                   <div className="relative" data-aos="fade-left">
-                    <div className="w-1/2 pl-10">
-                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                    <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
+                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
                         <div className="flex items-center mb-2">
                           <AcademicCapIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
