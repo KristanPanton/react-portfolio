@@ -24,6 +24,8 @@ export default function Hero() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
+  const [gameMode, setGameMode] = useState("life"); // Add this line
+
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
@@ -38,7 +40,7 @@ export default function Hero() {
   };
   return (
     <div className="relative min-h-screen">
-      <GameOfLife isDarkMode={theme === "dark"} />
+      <GameOfLife isDarkMode={theme === "dark"} gameMode={gameMode} />
       <header className="fixed bg-base-300/80 backdrop-blur-sm shadow-[0_5px_60px_-15px_rgba(0,0,0,0.3)] inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -83,7 +85,13 @@ export default function Hero() {
               </Link>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
+            <button
+              className="btn btn-outline btn-sm"
+              onClick={() => setGameMode(gameMode === "life" ? "snake" : "life")}
+            >
+              {gameMode === "life" ? "Play Snake" : "Show Life"}
+            </button>
             <label className="swap swap-rotate">
               <input
                 type="checkbox"

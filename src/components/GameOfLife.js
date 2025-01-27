@@ -2,7 +2,16 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
+// Add snake-related constants
+const SNAKE_INITIAL_LENGTH = 4;
+const DIRECTIONS = {
+  UP: [0, 1],
+  DOWN: [0, -1],
+  LEFT: [-1, 0],
+  RIGHT: [1, 0],
+};
+
+const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation, isSnakeMode }) => {
   const meshRef = useRef();
   const activeCells = useRef(0);
   const tempObject = new THREE.Object3D();
@@ -39,19 +48,19 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
           const xPos = x * cellSize;
           const yPos = y * cellSize;
 
-          // More dramatic wave effect
-          const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
-          const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
-          const waveZ =
-            Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
-
-          tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
-
-          // More dramatic rotation
-          tempObject.rotation.x =
-            Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
-          tempObject.rotation.y =
-            Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
+          // Only apply wave effects if not in snake mode
+          if (!isSnakeMode) {
+            const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
+            const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
+            const waveZ = Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
+            tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
+            tempObject.rotation.x = Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
+            tempObject.rotation.y = Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
+          } else {
+            // Flat grid for snake mode
+            tempObject.position.set(xPos, yPos, 0);
+            tempObject.rotation.set(0, 0, 0);
+          }
 
           const scale = Math.max(0.1, opacities.current[index]); // Added minimum scale
           tempObject.scale.setScalar(scale);
@@ -85,7 +94,85 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
   );
 };
 
-const GameOfLife = ({ isDarkMode }) => {
+// Add SnakeGame component
+const SnakeGame = ({ grid, setGrid, COLS, ROWS }) => {
+  const [snake, setSnake] = useState(() => {
+    const startX = Math.floor(COLS / 2);
+    const startY = Math.floor(ROWS / 2);
+    return Array(SNAKE_INITIAL_LENGTH)
+      .fill()
+      .map((_, i) => [startX - i, startY]);
+  });
+  const [direction, setDirection] = useState(DIRECTIONS.RIGHT);
+  const [food, setFood] = useState(() => [
+    Math.floor(Math.random() * COLS),
+    Math.floor(Math.random() * ROWS),
+  ]);
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      switch (e.key) {
+        case "ArrowUp":
+          setDirection(DIRECTIONS.UP);
+          break;
+        case "ArrowDown":
+          setDirection(DIRECTIONS.DOWN);
+          break;
+        case "ArrowLeft":
+          setDirection(DIRECTIONS.LEFT);
+          break;
+        case "ArrowRight":
+          setDirection(DIRECTIONS.RIGHT);
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, []);
+
+  useEffect(() => {
+    const moveSnake = () => {
+      const newSnake = [...snake];
+      const head = [
+        (snake[0][0] + direction[0] + COLS) % COLS,
+        (snake[0][1] + direction[1] + ROWS) % ROWS,
+      ];
+      newSnake.unshift(head);
+
+      if (head[0] === food[0] && head[1] === food[1]) {
+        setFood([
+          Math.floor(Math.random() * COLS),
+          Math.floor(Math.random() * ROWS),
+        ]);
+      } else {
+        newSnake.pop();
+      }
+
+      setSnake(newSnake);
+
+      // Update grid
+      const newGrid = Array(ROWS)
+        .fill()
+        .map(() => Array(COLS).fill(false));
+      newSnake.forEach(([x, y]) => {
+        newGrid[y][x] = true;
+      });
+      newGrid[food[1]][food[0]] = true;
+      setGrid(newGrid);
+    };
+
+    const gameInterval = setInterval(moveSnake, 150);
+    return () => clearInterval(gameInterval);
+  }, [snake, direction, food, COLS, ROWS, setGrid]);
+
+  return null;
+};
+
+// Modify the main GameOfLife component
+const GameOfLife = ({ isDarkMode, gameMode }) => {
   const [grid, setGrid] = useState(null);
   const [scrollRotation, setScrollRotation] = useState(0);
   const animationFrameId = useRef(null);
@@ -147,16 +234,18 @@ const GameOfLife = ({ isDarkMode }) => {
   }, [nextGeneration]);
 
   useEffect(() => {
-    const initialGrid = createGrid();
-    setGrid(initialGrid.map((row) => row.map(() => Math.random() > 0.85)));
-    animationFrameId.current = requestAnimationFrame(update);
+    if (gameMode === "life") {
+      const initialGrid = createGrid();
+      setGrid(initialGrid.map((row) => row.map(() => Math.random() > 0.85)));
+      animationFrameId.current = requestAnimationFrame(update);
+    }
 
     return () => {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [createGrid, update]);
+  }, [createGrid, update, gameMode]);
 
   // Add scroll listener
   useEffect(() => {
@@ -171,6 +260,18 @@ const GameOfLife = ({ isDarkMode }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Add scroll locking effect
+  useEffect(() => {
+    if (gameMode === "snake") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [gameMode]);
 
   if (!grid) return null;
 
@@ -200,8 +301,17 @@ const GameOfLife = ({ isDarkMode }) => {
           cellSize={CELL_SIZE}
           isDarkMode={isDarkMode}
           scrollRotation={scrollRotation}
+          isSnakeMode={gameMode === "snake"}
         />
       </Canvas>
+      {gameMode === "snake" && (
+        <SnakeGame
+          grid={grid}
+          setGrid={setGrid}
+          COLS={COLS}
+          ROWS={ROWS}
+        />
+      )}
     </div>
   );
 };
