@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import pfp from "../profile-pic.jpg";
 import {
   Bars3Icon,
-  XMarkIcon,
-  SunIcon,
   MoonIcon,
+  SunIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-scroll";
-import { TypeAnimation } from "react-type-animation";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useEffect, useState } from "react";
+import { Link } from "react-scroll";
+import { TypeAnimation } from "react-type-animation";
+import pfp from "../profile-pic.jpg";
+import GameOfLife from "./GameOfLife";
 
 const navigation = [
   { name: "About Me", id: "about" },
@@ -37,6 +38,7 @@ export default function Hero() {
   };
   return (
     <div className="relative min-h-screen">
+      <GameOfLife isDarkMode={theme === "dark"} />
       <header className="fixed bg-base-300/80 backdrop-blur-sm shadow-[0_5px_60px_-15px_rgba(0,0,0,0.3)] inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -69,6 +71,7 @@ export default function Hero() {
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <Link
+                key={item.id}
                 to={item.id}
                 spy={true}
                 smooth={true}
@@ -129,6 +132,7 @@ export default function Hero() {
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <Link
+                      key={item.id}
                       to={item.id}
                       spy={true}
                       smooth={true}
