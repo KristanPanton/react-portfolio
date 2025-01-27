@@ -1,23 +1,7 @@
-import {
-  AcademicCapIcon,
-  BriefcaseIcon
-} from "@heroicons/react/20/solid";
+import { AcademicCapIcon, BriefcaseIcon } from "@heroicons/react/20/solid";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
-
-// const features = [
-//   {
-//     name: "Email:",
-//     description: "kristan.e.panton@pace.edu",
-//     icon: AtSymbolIcon,
-//   },
-//   {
-//     name: "Location:",
-//     description: "NY 10562",
-//     icon: MapPinIcon,
-//   },
-// ];
 
 export default function About() {
   useEffect(() => {
@@ -65,67 +49,132 @@ export default function About() {
       <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
         <div className="lg:col-span-2 lg:col-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8">
           <div className="text-base leading-7">
-            <div className="grid gap-x-6 sm:grid-cols-2">
-              <div
-                className="ring-2 ring-base-300 bg-base-200 rounded-2xl mt-10 p-5 shadow-xl"
-                data-aos="zoom-in"
-              >
-                <BriefcaseIcon className="h-5 w-5 mx-auto" aria-hidden="true" />
-                <h2 className=" text-2xl text-center font-bold tracking-tight">
-                  Experience
-                </h2>
-                <p className="mt-3 list-item list-inside">
-                  Full Stack Developer at Temps Are Us, Inc. - Developed a job
-                  listing application using React Native and Supabase.
-                </p>
-                <p className="mt-3 list-item list-inside">
-                  Licensed Salesperson at Weichert Realtors - Led property
-                  showings and optimized client communication.
-                </p>
-                <p className="mt-3 list-item list-inside">
-                  Research Intern at Louis Stokes Alliances for Minority
-                  Participation - Developed a Python-based GUI for diagnosing
-                  manufacturing defects.
-                </p>
-              </div>
-              <div
-                className="ring-2 ring-base-300 bg-base-200 rounded-2xl mt-10 p-5 shadow-xl"
-                data-aos="zoom-in"
-              >
-                <AcademicCapIcon
-                  className="h-5 w-5 mx-auto"
-                  aria-hidden="true"
-                />
-                <h2 className="text-2xl text-center font-bold tracking-tigh">
-                  Education
-                </h2>
-                <p className="mt-3 list-item list-inside">
-                  Bachelor of Science in Computer Science, Pace University,
-                  Dean’s List, Minor in Mathematics.
-                </p>
-                <p className="mt-3 list-item list-inside">
-                  Relevant Coursework: Web Authoring & Digital Media, Data
-                  Structures & Algorithms, Software Engineering.
-                </p>
+            <div className="mt-10">
+              <h2 className="text-3xl font-bold text-center mb-10">
+                Professional Timeline
+              </h2>
+              <div className="relative">
+                {/* Timeline line */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-base-300"></div>
+
+                {/* Timeline items */}
+                <div className="space-y-12">
+                  {/* Full Stack Developer */}
+                  <div className="relative" data-aos="fade-right">
+                    <div className="ml-auto w-1/2 pr-10">
+                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                        <div className="flex items-center mb-2">
+                          <BriefcaseIcon className="h-5 w-5 mr-2" />
+                          <h3 className="text-lg font-bold">
+                            Full Stack Developer
+                          </h3>
+                        </div>
+                        <p className="text-sm mb-1">
+                          Temps Are Us, Inc. | Medway, Massachusetts
+                        </p>
+                        <p className="text-sm mb-2">June 2024 – Present</p>
+                        <ul className="list-disc pl-4">
+                          <li>
+                            Developed job listing application using React Native
+                            and Supabase which connected dental temp workers
+                            with hiring dental offices, reducing administration
+                            burden.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Licensed Salesperson */}
+                  <div className="relative" data-aos="fade-left">
+                    <div className="w-1/2 pl-10">
+                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                        <div className="flex items-center mb-2">
+                          <BriefcaseIcon className="h-5 w-5 mr-2" />
+                          <h3 className="text-lg font-bold">
+                            Licensed Salesperson
+                          </h3>
+                        </div>
+                        <p className="text-sm mb-1">
+                          Weichert Realtors | Larchmont, NY
+                        </p>
+                        <p className="text-sm mb-2">April 2022 – Present</p>
+                        <ul className="list-disc pl-4">
+                          <li>
+                            Led 25+ property showings, coordinating targeted
+                            email marketing campaigns that improved client
+                            engagement by 30%.
+                          </li>
+                          <li>
+                            Optimized communication with 1,000+ prospects by
+                            implementing automated follow-ups using kvCORE,
+                            increasing response rates by 20%.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Research Intern */}
+                  <div className="relative" data-aos="fade-right">
+                    <div className="ml-auto w-1/2 pr-10">
+                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                        <div className="flex items-center mb-2">
+                          <BriefcaseIcon className="h-5 w-5 mr-2" />
+                          <h3 className="text-lg font-bold">
+                            Research Intern (Seasonal)
+                          </h3>
+                        </div>
+                        <p className="text-sm mb-1">
+                          Louis Stokes Alliances for Minority Participation |
+                          Binghamton, NY
+                        </p>
+                        <p className="text-sm mb-2">June 2020 – July 2021</p>
+                        <ul className="list-disc pl-4">
+                          <li>
+                            Developed a Python-based GUI to diagnose 7 classes
+                            of manufacturing defects using scraped data from
+                            Beautiful Soup.
+                          </li>
+                          <li>
+                            Led comparative analysis of 7+ self-driving car
+                            simulation software, identifying the top 2 most
+                            accessible and high performing platforms, later used
+                            by research teams for autonomous vehicle testing.
+                          </li>
+                          <li>
+                            Presented research findings at UB Research
+                            Conference and Illinois TRIO McNair Virtual
+                            Symposium to audiences of 30+ peers and researchers.
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Education */}
+                  <div className="relative" data-aos="fade-left">
+                    <div className="w-1/2 pl-10">
+                      <div className="p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                        <div className="flex items-center mb-2">
+                          <AcademicCapIcon className="h-5 w-5 mr-2" />
+                          <h3 className="text-lg font-bold">
+                            Bachelor of Science in Computer Science
+                          </h3>
+                        </div>
+                        <p className="text-sm mb-1">Pace University</p>
+                        <p className="text-sm mb-2">2020 - Present</p>
+                        <p>Dean's List, Minor in Mathematics</p>
+                        <p>
+                          Key Courses: Web Authoring & Digital Media, Data
+                          Structures & Algorithms, Software Engineering
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            {/* <dl
-              className="mt-10 space-y-8 text-base leading-7 lg:max-w-none"
-              data-aos="fade-right"
-            >
-              {features.map((feature) => (
-                <div key={feature.name} className="relative pl-9">
-                  <dt className="inline font-semibold">
-                    <feature.icon
-                      className="absolute left-1 top-1 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                    {feature.name}
-                  </dt>{" "}
-                  <dd className="inline">{feature.description}</dd>
-                </div>
-              ))}
-            </dl> */}
           </div>
         </div>
       </div>
