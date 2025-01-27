@@ -2,7 +2,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-const CellsInstanced = ({ grid, cellSize, isDarkMode }) => {
+const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
   const meshRef = useRef();
   const activeCells = useRef(0);
   const tempObject = new THREE.Object3D();
@@ -11,24 +11,32 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode }) => {
   useFrame((state, delta) => {
     time.current += delta * 0.8; // Increased speed
     activeCells.current = 0;
-    
+
+    // Apply base rotation from scroll
+    if (meshRef.current) {
+      meshRef.current.rotation.x = scrollRotation;
+    }
+
     for (let y = 0; y < grid.length; y++) {
       for (let x = 0; x < grid[0].length; x++) {
         if (grid[y][x]) {
           const xPos = x * cellSize;
           const yPos = y * cellSize;
-          
+
           // More dramatic wave effect
           const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
           const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
-          const waveZ = Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
+          const waveZ =
+            Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
 
           tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
-          
+
           // More dramatic rotation
-          tempObject.rotation.x = Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
-          tempObject.rotation.y = Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
-          
+          tempObject.rotation.x =
+            Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
+          tempObject.rotation.y =
+            Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
+
           tempObject.updateMatrix();
           meshRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
           activeCells.current++;
@@ -60,6 +68,7 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode }) => {
 
 const GameOfLife = ({ isDarkMode }) => {
   const [grid, setGrid] = useState(null);
+  const [scrollRotation, setScrollRotation] = useState(0);
   const animationFrameId = useRef(null);
 
   // Constants
@@ -130,6 +139,20 @@ const GameOfLife = ({ isDarkMode }) => {
     };
   }, [createGrid, update]);
 
+  // Add scroll listener
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY;
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const rotation = (scrollPos / maxScroll) * Math.PI * 0.2; // Adjust multiplier for rotation amount
+      setScrollRotation(rotation);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   if (!grid) return null;
 
   return (
@@ -157,6 +180,7 @@ const GameOfLife = ({ isDarkMode }) => {
           grid={grid}
           cellSize={CELL_SIZE}
           isDarkMode={isDarkMode}
+          scrollRotation={scrollRotation}
         />
       </Canvas>
     </div>
