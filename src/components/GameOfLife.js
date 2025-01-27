@@ -7,10 +7,17 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
   const activeCells = useRef(0);
   const tempObject = new THREE.Object3D();
   const time = useRef(0);
+  const opacities = useRef(
+    new Float32Array(grid.length * grid[0].length).fill(1)
+  );
+  const targetOpacities = useRef(
+    new Float32Array(grid.length * grid[0].length).fill(1)
+  );
 
   useFrame((state, delta) => {
     time.current += delta * 0.8; // Increased speed
     activeCells.current = 0;
+    const transitionSpeed = 5 * delta;
 
     // Apply base rotation from scroll
     if (meshRef.current) {
@@ -19,7 +26,16 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
 
     for (let y = 0; y < grid.length; y++) {
       for (let x = 0; x < grid[0].length; x++) {
-        if (grid[y][x]) {
+        const index = y * grid[0].length + x;
+        targetOpacities.current[index] = grid[y][x] ? 1 : 0;
+
+        // Smoothly interpolate opacity
+        opacities.current[index] +=
+          (targetOpacities.current[index] - opacities.current[index]) *
+          transitionSpeed;
+
+        if (grid[y][x] || opacities.current[index] > 0) {
+          // Changed condition
           const xPos = x * cellSize;
           const yPos = y * cellSize;
 
@@ -36,6 +52,9 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation }) => {
             Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
           tempObject.rotation.y =
             Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
+
+          const scale = Math.max(0.1, opacities.current[index]); // Added minimum scale
+          tempObject.scale.setScalar(scale);
 
           tempObject.updateMatrix();
           meshRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
