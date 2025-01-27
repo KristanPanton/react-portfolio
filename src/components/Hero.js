@@ -87,6 +87,7 @@ export default function Hero() {
             <label className="swap swap-rotate">
               <input
                 type="checkbox"
+                id="theme-toggle-desktop"
                 className="hidden"
                 onChange={handleToggle}
                 checked={theme === "light" ? false : true}
@@ -110,6 +111,7 @@ export default function Hero() {
                 <label className="swap swap-rotate">
                   <input
                     type="checkbox"
+                    id="theme-toggle-mobile"
                     className="hidden"
                     onChange={handleToggle}
                     checked={theme === "light" ? false : true}
