@@ -88,7 +88,9 @@ export default function Hero() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
             <button
               className="btn btn-outline btn-sm"
-              onClick={() => setGameMode(gameMode === "life" ? "snake" : "life")}
+              onClick={() =>
+                setGameMode(gameMode === "life" ? "snake" : "life")
+              }
             >
               {gameMode === "life" ? "Play Snake" : "Show Life"}
             </button>
@@ -113,7 +115,7 @@ export default function Hero() {
           onClose={setMobileMenuOpen}
         >
           <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto backdrop-brightness-90 backdrop-blur-2xl bg-transparent px-6 py-6 sm:max-w-sm">
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto backdrop-blur-xl bg-base-100/80 px-6 py-6 sm:max-w-sm shadow-2xl">
             <div className="flex items-center justify-between">
               <div className="-m-1.5 p-1.5">
                 <label className="swap swap-rotate">
@@ -148,7 +150,7 @@ export default function Hero() {
                       smooth={true}
                       offset={50}
                       duration={500}
-                      className="-mx-3 block rounded-lg px-3 py-2 font-semibold leading-7 btn btn-ghost"
+                      className="-mx-3 block rounded-lg px-3 py-2 font-semibold leading-7 btn btn-ghost text-shadow-sm"
                     >
                       {item.name}
                     </Link>
