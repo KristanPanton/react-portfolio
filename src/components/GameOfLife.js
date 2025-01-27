@@ -189,6 +189,7 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
   const [grid, setGrid] = useState(null);
   const [scrollRotation, setScrollRotation] = useState(0);
   const animationFrameId = useRef(null);
+  const [canvasPosition, setCanvasPosition] = useState({ x: 0, y: 0 });
 
   // Constants
   const DESIRED_COLS = 50; // Set desired number of columns
@@ -259,7 +260,7 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
     };
   }, [createGrid, update, gameMode]);
 
-  // Add scroll listener
+  // Update the scroll listener effect
   useEffect(() => {
     const handleScroll = () => {
       const scrollPos = window.scrollY;
@@ -267,11 +268,21 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         document.documentElement.scrollHeight - window.innerHeight;
       const rotation = (scrollPos / maxScroll) * Math.PI * 0.2; // Adjust multiplier for rotation amount
       setScrollRotation(rotation);
+
+      // Update canvas position for snake mode
+      if (gameMode === 'snake') {
+        setCanvasPosition({
+          x: 0,
+          y: scrollPos
+        });
+      } else {
+        setCanvasPosition({ x: 0, y: 0 });
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [gameMode]);
 
   // Add scroll locking effect
   useEffect(() => {
@@ -288,7 +299,10 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
   if (!grid) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-full -z-50 opacity-100 pointer-events-none overflow-hidden">
+    <div className="fixed inset-0 w-full h-full -z-50 opacity-100 pointer-events-none overflow-hidden"
+         style={{
+           transform: gameMode === 'snake' ? `translate(${canvasPosition.x}px, ${canvasPosition.y}px)` : 'none'
+         }}>
       <Canvas
         orthographic
         camera={{

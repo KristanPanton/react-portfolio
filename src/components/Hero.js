@@ -38,6 +38,15 @@ export default function Hero() {
   const handleToggle = (e) => {
     e.target.checked ? setTheme("dark") : setTheme("light");
   };
+
+  const handleGameModeToggle = () => {
+    const newMode = gameMode === "life" ? "snake" : "life";
+    setGameMode(newMode);
+    if (newMode === "snake") {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="relative min-h-screen">
       <GameOfLife isDarkMode={theme === "dark"} gameMode={gameMode} />
@@ -88,9 +97,7 @@ export default function Hero() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
             <button
               className="btn btn-outline btn-sm"
-              onClick={() =>
-                setGameMode(gameMode === "life" ? "snake" : "life")
-              }
+              onClick={handleGameModeToggle}
             >
               {gameMode === "life" ? "Play Snake" : "Show Life"}
             </button>
