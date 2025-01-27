@@ -11,7 +11,13 @@ const DIRECTIONS = {
   RIGHT: [1, 0],
 };
 
-const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation, isSnakeMode }) => {
+const CellsInstanced = ({
+  grid,
+  cellSize,
+  isDarkMode,
+  scrollRotation,
+  isSnakeMode,
+}) => {
   const meshRef = useRef();
   const activeCells = useRef(0);
   const tempObject = new THREE.Object3D();
@@ -52,10 +58,13 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation, isSnakeMod
           if (!isSnakeMode) {
             const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
             const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
-            const waveZ = Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
+            const waveZ =
+              Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
             tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
-            tempObject.rotation.x = Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
-            tempObject.rotation.y = Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
+            tempObject.rotation.x =
+              Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
+            tempObject.rotation.y =
+              Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
           } else {
             // Flat grid for snake mode
             tempObject.position.set(xPos, yPos, 0);
@@ -79,7 +88,11 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode, scrollRotation, isSnakeMod
     <instancedMesh
       ref={meshRef}
       args={[null, null, grid.length * grid[0].length]}
-      position={[-window.innerWidth / 2, -window.innerHeight / 2, 0]}
+      position={[
+        -(grid[0].length * cellSize) / 2 + cellSize / 2,
+        -(grid.length * cellSize) / 2 + cellSize / 2,
+        0,
+      ]}
     >
       <planeGeometry args={[cellSize - 1, cellSize - 1]} />
       <meshStandardMaterial
@@ -178,11 +191,10 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
   const animationFrameId = useRef(null);
 
   // Constants
-  const CELL_SIZE = 20;
-  const CANVAS_WIDTH = window.innerWidth;
-  const CANVAS_HEIGHT = window.innerHeight;
-  const COLS = Math.floor(CANVAS_WIDTH / CELL_SIZE);
-  const ROWS = Math.floor(CANVAS_HEIGHT / CELL_SIZE);
+  const DESIRED_COLS = 50; // Set desired number of columns
+  const CELL_SIZE = Math.ceil(window.innerWidth / DESIRED_COLS);
+  const COLS = Math.floor(window.innerWidth / CELL_SIZE);
+  const ROWS = Math.floor(window.innerHeight / CELL_SIZE);
 
   const createGrid = useCallback(() => {
     return Array(ROWS)
@@ -282,10 +294,10 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         camera={{
           zoom: 1,
           position: [0, 0, 100],
-          left: -CANVAS_WIDTH / 2,
-          right: CANVAS_WIDTH / 2,
-          top: CANVAS_HEIGHT / 2,
-          bottom: -CANVAS_HEIGHT / 2,
+          left: -window.innerWidth / 2,
+          right: window.innerWidth / 2,
+          top: window.innerHeight / 2,
+          bottom: -window.innerHeight / 2,
           near: 0.1,
           far: 1000,
         }}
@@ -305,12 +317,7 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         />
       </Canvas>
       {gameMode === "snake" && (
-        <SnakeGame
-          grid={grid}
-          setGrid={setGrid}
-          COLS={COLS}
-          ROWS={ROWS}
-        />
+        <SnakeGame grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} />
       )}
     </div>
   );
