@@ -3,66 +3,24 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const frontend = [
-  {
-    name: "JavaScript/TypeScript",
-    value: 85,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "React Native",
-    value: 80,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "Web Development",
-    value: 85,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "Git/Version Control",
-    value: 80,
-    icon: CheckCircleIcon,
-  },
-];
-
-const backend = [
-  {
-    name: "Python",
-    value: 90,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "C/C++",
-    value: 85,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "Java",
-    value: 80,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "MongoDB/Supabase",
-    value: 75,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "Unity/C#",
-    value: 75,
-    icon: CheckCircleIcon,
-  },
-  {
-    name: "Firebase/Express",
-    value: 70,
-    icon: CheckCircleIcon,
-  },
+const skills = [
+  { name: "JavaScript/TypeScript", icon: CheckCircleIcon },
+  { name: "React Native", icon: CheckCircleIcon },
+  { name: "Web Development", icon: CheckCircleIcon },
+  { name: "Git/Version Control", icon: CheckCircleIcon },
+  { name: "Python", icon: CheckCircleIcon },
+  { name: "C/C++", icon: CheckCircleIcon },
+  { name: "Java", icon: CheckCircleIcon },
+  { name: "MongoDB/Supabase", icon: CheckCircleIcon },
+  { name: "Unity/C#", icon: CheckCircleIcon },
+  { name: "Firebase/Express", icon: CheckCircleIcon },
 ];
 
 export default function Skills() {
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
+  
   return (
     <div className="py-24 sm:py-32" id="skills">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -72,61 +30,19 @@ export default function Skills() {
             Skills
           </p>
         </div>
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:gap-y-10">
-          <div
-            className="mt-10 max-w-2xl sm:mt-10 lg:mt-10 lg:max-w-4xl bg-base-200 ring-2 ring-base-300 rounded-2xl p-5 shadow-xl"
-            data-aos="zoom-in"
-          >
-            <p className="text-2xl text-center font-bold mb-6">
-              Frontend Development
-            </p>
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-6 lg:max-w-none lg:grid-cols-2 lg:gap-y-6">
-              {frontend.map((frontend) => (
-                <div key={frontend.name} className="relative pl-16">
-                  <dt className="text-base font-semibold leading-7">
-                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
-                      <frontend.icon className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    {frontend.name}
-                  </dt>
-                  <dd className="mt-2 text-base leading-7">
-                    <progress
-                      className="progress w-3/4"
-                      value={frontend.value}
-                      max="100"
-                    ></progress>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-          <div
-            className="mt-10 max-w-2xl sm:mt-10 lg:mt-10 lg:max-w-4xl bg-base-200 ring-2 ring-base-300 rounded-2xl p-5 shadow-xl"
-            data-aos="zoom-in"
-          >
-            <p className="text-2xl text-center font-bold mb-6">
-              Backend Development
-            </p>
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-6 lg:max-w-none lg:grid-cols-2 lg:gap-y-6">
-              {backend.map((backend) => (
-                <div key={backend.name} className="relative pl-16">
-                  <dt className="text-base font-semibold leading-7">
-                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
-                      <backend.icon className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    {backend.name}
-                  </dt>
-                  <dd className="mt-2 text-base leading-7">
-                    <progress
-                      className="progress w-3/4"
-                      value={backend.value}
-                      max="100"
-                    ></progress>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+        <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+          {skills.map((skill) => (
+            <div
+              key={skill.name}
+              className="bg-base-200 ring-2 ring-base-300 rounded-2xl p-4 shadow-xl"
+              data-aos="zoom-in"
+            >
+              <div className="flex items-center space-x-3">
+                <skill.icon className="h-6 w-6" aria-hidden="true" />
+                <h3 className="text-lg font-semibold">{skill.name}</h3>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
