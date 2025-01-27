@@ -1,18 +1,34 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 const CellsInstanced = ({ grid, cellSize, isDarkMode }) => {
   const meshRef = useRef();
   const activeCells = useRef(0);
+  const tempObject = new THREE.Object3D();
+  const time = useRef(0);
 
-  useEffect(() => {
-    const tempObject = new THREE.Object3D();
+  useFrame((state, delta) => {
+    time.current += delta * 0.8; // Increased speed
     activeCells.current = 0;
+    
     for (let y = 0; y < grid.length; y++) {
       for (let x = 0; x < grid[0].length; x++) {
         if (grid[y][x]) {
-          tempObject.position.set(x * cellSize, y * cellSize, 0);
+          const xPos = x * cellSize;
+          const yPos = y * cellSize;
+          
+          // More dramatic wave effect
+          const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
+          const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
+          const waveZ = Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
+
+          tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
+          
+          // More dramatic rotation
+          tempObject.rotation.x = Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
+          tempObject.rotation.y = Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
+          
           tempObject.updateMatrix();
           meshRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
           activeCells.current++;
@@ -21,7 +37,7 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode }) => {
     }
     meshRef.current.count = activeCells.current;
     meshRef.current.instanceMatrix.needsUpdate = true;
-  }, [grid, cellSize]);
+  });
 
   return (
     <instancedMesh
@@ -30,10 +46,13 @@ const CellsInstanced = ({ grid, cellSize, isDarkMode }) => {
       position={[-window.innerWidth / 2, -window.innerHeight / 2, 0]}
     >
       <planeGeometry args={[cellSize - 1, cellSize - 1]} />
-      <meshBasicMaterial
+      <meshStandardMaterial
         color={isDarkMode ? "#3498db" : "#2980b9"}
         transparent
-        opacity={isDarkMode ? 0.6 : 0.3}
+        opacity={isDarkMode ? 0.8 : 0.5}
+        side={THREE.DoubleSide}
+        metalness={0.2}
+        roughness={0.3}
       />
     </instancedMesh>
   );
@@ -132,6 +151,8 @@ const GameOfLife = ({ isDarkMode }) => {
           attach="background"
           args={[isDarkMode ? "#191e24" : "#ffffff"]}
         />
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[10, 10, 5]} intensity={1} />
         <CellsInstanced
           grid={grid}
           cellSize={CELL_SIZE}
