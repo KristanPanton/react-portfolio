@@ -37,7 +37,7 @@ export default function Hero() {
   };
   return (
     <div className="relative min-h-screen">
-      <header className="fixed bg-base-300/80 backdrop-blur-sm shadow-2xl shadow-neutral inset-x-0 top-0 z-50">
+      <header className="fixed bg-base-300/80 backdrop-blur-sm shadow-[0_5px_60px_-15px_rgba(0,0,0,0.3)] inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
