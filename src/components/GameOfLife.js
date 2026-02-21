@@ -2,6 +2,43 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
+const DotsGrid = ({ cols, rows, cellSize, isDarkMode }) => {
+  const positions = useMemo(() => {
+    const arr = new Float32Array(cols * rows * 3);
+    const offsetX = -(cols * cellSize) / 2 + cellSize / 2;
+    const offsetY = -(rows * cellSize) / 2 + cellSize / 2;
+    let i = 0;
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        arr[i++] = offsetX + x * cellSize;
+        arr[i++] = offsetY + y * cellSize;
+        arr[i++] = -1;
+      }
+    }
+    return arr;
+  }, [cols, rows, cellSize]);
+
+  return (
+    <points>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          array={positions}
+          count={cols * rows}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        color={isDarkMode ? "#ffffff" : "#000000"}
+        size={3}
+        sizeAttenuation={false}
+        opacity={isDarkMode ? 0.15 : 0.12}
+        transparent
+      />
+    </points>
+  );
+};
+
 // Add snake-related constants
 const SNAKE_INITIAL_LENGTH = 4;
 const DIRECTIONS = {
@@ -458,6 +495,9 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
           scrollRotation={scrollRotation}
           isSnakeMode={gameMode === "snake"}
         />
+        {gameMode === "snake" && (
+          <DotsGrid cols={COLS} rows={ROWS} cellSize={CELL_SIZE} isDarkMode={isDarkMode} />
+        )}
       </Canvas>
       {gameMode === "snake" && (
         <SnakeGame key={restartKey} grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} score={score} setScore={setScore} setGameOver={setGameOver} />
