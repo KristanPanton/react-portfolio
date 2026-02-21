@@ -213,7 +213,7 @@ export default function Hero() {
                 <div className="relative">
                   <div className="w-72 h-72 rounded-full bg-base-100 comic-card overflow-hidden flex items-end justify-center">
                     <img
-                      src="/Kristan-cropped-grey.svg"
+                      src="/Kristan-cropped-grey-new.svg"
                       alt="Kristan Panton cartoon"
                       className="w-64 h-64 object-contain object-bottom"
                     />

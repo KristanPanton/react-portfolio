@@ -163,7 +163,7 @@ export default function About() {
                           </h3>
                         </div>
                         <p className="text-sm mb-1">Pace University</p>
-                        <p className="text-sm mb-2">2020 - Present</p>
+                        <p className="text-sm mb-2">Fall 2020 - Spring 2025</p>
                         <p>Dean's List, Minor in Mathematics</p>
                         <p>
                           Key Courses: Web Authoring & Digital Media, Data
