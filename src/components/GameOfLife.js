@@ -12,14 +12,14 @@ const DotsGrid = ({ cols, rows, cellSize, isDarkMode }) => {
       for (let x = 0; x < cols; x++) {
         arr[i++] = offsetX + x * cellSize;
         arr[i++] = offsetY + y * cellSize;
-        arr[i++] = -1;
+        arr[i++] = -100;
       }
     }
     return arr;
   }, [cols, rows, cellSize]);
 
   return (
-    <points>
+    <points renderOrder={-1}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -29,11 +29,12 @@ const DotsGrid = ({ cols, rows, cellSize, isDarkMode }) => {
         />
       </bufferGeometry>
       <pointsMaterial
-        color={isDarkMode ? "#ffffff" : "#000000"}
+        color={isDarkMode ? "#27aaff" : "#000000"}
         size={3}
         sizeAttenuation={false}
         opacity={isDarkMode ? 0.15 : 0.12}
         transparent
+        depthWrite={false}
       />
     </points>
   );
@@ -488,6 +489,9 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         <ambientLight intensity={0.35} />
         <directionalLight position={[8, 12, 6]} intensity={2.2} />
         <directionalLight position={[-6, -4, 2]} intensity={0.4} />
+        {gameMode === "snake" && (
+          <DotsGrid cols={COLS} rows={ROWS} cellSize={CELL_SIZE} isDarkMode={isDarkMode} />
+        )}
         <CellsInstanced
           grid={grid}
           cellSize={CELL_SIZE}
@@ -495,9 +499,6 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
           scrollRotation={scrollRotation}
           isSnakeMode={gameMode === "snake"}
         />
-        {gameMode === "snake" && (
-          <DotsGrid cols={COLS} rows={ROWS} cellSize={CELL_SIZE} isDarkMode={isDarkMode} />
-        )}
       </Canvas>
       {gameMode === "snake" && (
         <SnakeGame key={restartKey} grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} score={score} setScore={setScore} setGameOver={setGameOver} />
