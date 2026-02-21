@@ -15,13 +15,12 @@ export default function About() {
       <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
         <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:pr-4">
-            <div className="lg:max-w-lg">
+            <div className="comic-card bg-base-100 p-6 sm:p-8 rounded-xl" data-aos="fade-right">
               <h2 className="section-label">Get to know more</h2>
               <p className="mt-2 text-4xl section-title sm:text-6xl">
                 About Me
               </p>
-              {/* change font color */}
-              <p className="mt-6 text-lg leading-8 text-base-content/70" data-aos="fade-right">
+              <p className="mt-6 text-lg leading-8 text-base-content/70">
                 Hello, I'm Kristan Panton, a Computer Science student at Pace
                 University with a concentration in Software Engineering. I have
                 a passion for developing innovative solutions and have worked on
@@ -63,7 +62,7 @@ export default function About() {
                   {/* Full Stack Developer */}
                   <div className="relative" data-aos="fade-right">
                     <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
-                        <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
+                        <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -89,7 +88,7 @@ export default function About() {
                   {/* Licensed Salesperson */}
                   <div className="relative" data-aos="fade-left">
                     <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
-                      <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
+                      <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -119,7 +118,7 @@ export default function About() {
                   {/* Research Intern */}
                   <div className="relative" data-aos="fade-right">
                     <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
-                      <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
+                      <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -156,7 +155,7 @@ export default function About() {
                   {/* Education */}
                   <div className="relative" data-aos="fade-left">
                     <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
-                      <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
+                      <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <AcademicCapIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">

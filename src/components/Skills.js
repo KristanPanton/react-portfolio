@@ -34,7 +34,7 @@ export default function Skills() {
           {skills.map((skill) => (
             <div
               key={skill.name}
-              className="bg-base-200 comic-card p-3 sm:p-4"
+              className="bg-base-100 comic-card p-3 sm:p-4"
               data-aos="zoom-in"
             >
               <div className="flex items-center space-x-2 sm:space-x-3">

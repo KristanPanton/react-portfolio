@@ -86,7 +86,7 @@ export default function Projects() {
           {visibleProjects.map((project) => (
             <div
               key={project.id}
-              className="group relative comic-card bg-base-200 rounded-2xl"
+              className="group relative comic-card bg-base-100 rounded-2xl"
               data-aos="flip-left"
             >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:brightness-75 duration-300 delay-100 lg:h-80 rounded-t-2xl ">

@@ -211,7 +211,7 @@ export default function Hero() {
             >
               <div className="grid justify-center items-center">
                 <div className="relative">
-                  <div className="w-72 h-72 rounded-full bg-base-200 comic-card overflow-hidden flex items-end justify-center">
+                  <div className="w-72 h-72 rounded-full bg-base-100 comic-card overflow-hidden flex items-end justify-center">
                     <img
                       src="/Kristan-cropped-grey.svg"
                       alt="Kristan Panton cartoon"
@@ -221,38 +221,41 @@ export default function Hero() {
                 </div>
               </div>
               <div className="grid justify-center items-center mt-3">
-                <div className="text-center">
-                  <div className="text-xl font-body font-semibold tracking-wide uppercase opacity-60">
-                    Hello, I'm
+                <div className="comic-card bg-base-100 p-6 sm:p-8 max-w-lg rounded-xl">
+                  <div className="text-center">
+                    <div className="text-xl font-body font-semibold tracking-wide uppercase opacity-60">
+                      Hello, I'm
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h1 className="font-comic text-5xl tracking-wide sm:text-7xl">
+                      Kristan Panton
+                    </h1>
+                    <p className="mt-6 text-2xl font-body leading-8">
+                      <TypeAnimation
+                        sequence={[
+                          "Frontend Developer",
+                          2000,
+                          "UI/UX Designer",
+                          2000,
+                          "Web Developer",
+                          2000,
+                        ]}
+                        speed={50}
+                        repeat={Infinity}
+                      />
+                    </p>
+                    <div className="mt-10 flex items-center justify-center gap-x-6">
+                      <p>
+                        Computer Science student at Pace University, focusing on
+                        Software Engineering. Experienced in full-stack
+                        development and passionate about creating innovative
+                        solutions using modern technologies.
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="text-center">
-                  <h1 className="font-comic text-5xl tracking-wide sm:text-7xl">
-                    Kristan Panton
-                  </h1>
-                  <p className="mt-6 text-2xl font-body leading-8">
-                    <TypeAnimation
-                      sequence={[
-                        "Frontend Developer",
-                        2000,
-                        "UI/UX Designer",
-                        2000,
-                        "Web Developer",
-                        2000,
-                      ]}
-                      speed={50}
-                      repeat={Infinity}
-                    />
-                  </p>
-                  <div className="mt-10 flex items-center justify-center gap-x-6">
-                    <p>
-                      Computer Science student at Pace University, focusing on
-                      Software Engineering. Experienced in full-stack
-                      development and passionate about creating innovative
-                      solutions using modern technologies.
-                    </p>
-                  </div>
-                  <div className="mt-10 flex items-center justify-center gap-x-4">
+                <div className="mt-10 flex items-center justify-center gap-x-4">
                     <a
                       className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
                       href="https://www.linkedin.com/in/kristan-panton/"
@@ -288,7 +291,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </div>
       )}
     </div>
   );
