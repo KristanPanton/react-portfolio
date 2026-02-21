@@ -175,7 +175,7 @@ const CellsInstanced = ({
       >
         <boxGeometry args={[cellSize - 2, cellSize - 2, 1]} />
         <meshToonMaterial
-          color={isDarkMode ? "#27aaff" : "#1a77e8"}
+          color="#27aaff"
           gradientMap={gradientMap}
           transparent
           opacity={isDarkMode ? 0.8 : 0.55}
