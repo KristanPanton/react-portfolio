@@ -80,6 +80,48 @@
   }
 }
 
+/* TheySaidSo quote widget */
+.quote_container blockquote.theysaidso_quote {
+  margin: 0;
+  padding: 0;
+}
+
+.quote_container .quote_text {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.5;
+  quotes: "\201C" "\201D";
+}
+
+.quote_container .quote_text::before {
+  font-family: 'Bangers', cursive;
+  content: open-quote;
+  font-size: 3rem;
+  line-height: 0;
+  vertical-align: -0.6rem;
+  margin-right: 4px;
+  opacity: 0.4;
+}
+
+.quote_container cite.author {
+  display: block;
+  margin-top: 0.75rem;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.6;
+  font-style: normal;
+}
+
+.quote_container cite.author::before {
+  content: "— ";
+}
+
+.quote_container a.attribution {
+  display: none;
+}
+
 #footer-logo {
   width: 3.6rem;
   /* margin: 0 2px; */
