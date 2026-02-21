@@ -72,7 +72,7 @@
   }
 
   .section-label {
-    @apply text-lg font-body font-semibold tracking-wide uppercase opacity-60;
+    @apply text-base font-body font-semibold tracking-wide uppercase opacity-60;
   }
 
   .section-title {
@@ -88,7 +88,7 @@
 
 .quote_container .quote_text {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.5;
   quotes: "\201C" "\201D";
@@ -97,7 +97,7 @@
 .quote_container .quote_text::before {
   font-family: 'Bangers', cursive;
   content: open-quote;
-  font-size: 3rem;
+  font-size: 2.5rem;
   line-height: 0;
   vertical-align: -0.6rem;
   margin-right: 4px;

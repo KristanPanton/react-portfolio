@@ -26,7 +26,7 @@ export default function Skills() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="section-label">Explore my</h2>
-          <p className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl section-title">
+          <p className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl section-title">
             Skills
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function Skills() {
             >
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <skill.icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
-                <h3 className="text-base sm:text-lg font-semibold">{skill.name}</h3>
+                <h3 className="text-sm sm:text-base font-semibold">{skill.name}</h3>
               </div>
             </div>
           ))}

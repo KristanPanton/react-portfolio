@@ -79,7 +79,7 @@ export default function Projects() {
     <div id="projects">
       <div className="mx-auto max-w-2xl px-6 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
         <h2 className="section-label">Browse my recent</h2>
-        <p className="mt-2 text-4xl section-title sm:text-6xl">
+        <p className="mt-2 text-3xl section-title sm:text-5xl">
           Projects
         </p>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
@@ -98,7 +98,7 @@ export default function Projects() {
               </div>
               <div className="mt-4 flex justify-between p-4">
                 <div className="p-4">
-                  <h3 className="text-lg font-bold">
+                  <h3 className="text-base font-bold">
                     <a href={project.href}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {project.name}

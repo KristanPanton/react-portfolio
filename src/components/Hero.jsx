@@ -212,11 +212,11 @@ export default function Hero() {
             >
               <div className="grid justify-center items-center">
                 <div className="relative">
-                  <div className="w-72 h-72 rounded-full bg-base-100 comic-card overflow-hidden flex items-end justify-center">
+                  <div className="w-64 h-64 rounded-full bg-base-100 comic-card overflow-hidden flex items-end justify-center">
                     <img
                       src="/Kristan-cropped-grey-new.svg"
                       alt="Kristan Panton cartoon"
-                      className="w-64 h-64 object-contain object-bottom"
+                      className="w-56 h-56 object-contain object-bottom"
                     />
                   </div>
                 </div>
@@ -224,15 +224,15 @@ export default function Hero() {
               <div className="grid justify-center items-center mt-3">
                 <div className="comic-card bg-base-100 p-6 sm:p-8 max-w-lg rounded-xl">
                   <div className="text-center">
-                    <div className="text-xl font-body font-semibold tracking-wide uppercase opacity-60">
+                    <div className="text-base font-body font-semibold tracking-wide uppercase opacity-60">
                       Hello, I'm
                     </div>
                   </div>
                   <div className="text-center">
-                    <h1 className="font-comic text-5xl tracking-wide sm:text-7xl">
+                    <h1 className="font-comic text-4xl tracking-wide sm:text-6xl">
                       Kristan Panton
                     </h1>
-                    <p className="mt-6 text-2xl font-body leading-8">
+                    <p className="mt-6 text-xl font-body leading-8">
                       <TypeAnimation
                         sequence={[
                           "Frontend Developer",

@@ -54,7 +54,7 @@ export default function Contact() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="section-label">Located in NY</h2>
-          <p className="mt-2 text-4xl section-title sm:text-6xl">
+          <p className="mt-2 text-3xl section-title sm:text-5xl">
             Let's Connect
           </p>
           <p className="mt-4 text-lg flex justify-center gap-4">

@@ -17,10 +17,10 @@ export default function About() {
           <div className="lg:pr-4">
             <div className="comic-card bg-base-100 p-6 sm:p-8 rounded-xl" data-aos="fade-right">
               <h2 className="section-label">Get to know more</h2>
-              <p className="mt-2 text-4xl section-title sm:text-6xl">
+              <p className="mt-2 text-3xl section-title sm:text-5xl">
                 About Me
               </p>
-              <p className="mt-6 text-lg leading-8 text-base-content/70">
+              <p className="mt-6 text-base leading-7 text-base-content/70">
                 Hello, I'm Kristan Panton, a Computer Science student at Pace
                 University with a concentration in Software Engineering. I have
                 a passion for developing innovative solutions and have worked on
@@ -50,7 +50,7 @@ export default function About() {
         <div className="lg:col-span-2 lg:col-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8">
           <div className="text-base leading-7">
             <div className="mt-10">
-              <h2 className="text-3xl section-title text-center mb-6 sm:mb-10">
+              <h2 className="text-2xl section-title text-center mb-6 sm:mb-10">
                 Professional Timeline
               </h2>
               <div className="relative">

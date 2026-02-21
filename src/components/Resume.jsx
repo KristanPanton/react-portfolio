@@ -46,7 +46,7 @@ export default function Resume() {
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none" data-aos="fade-up">
           <div className="comic-card bg-base-100 p-6 sm:p-8 rounded-xl">
             <h2 className="section-label">View my credentials</h2>
-            <p className="mt-2 text-4xl section-title sm:text-6xl mb-8">
+            <p className="mt-2 text-3xl section-title sm:text-5xl mb-8">
               Resume
             </p>
 
