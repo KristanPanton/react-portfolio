@@ -10,7 +10,7 @@ export default function App() {
   const [gameMode, setGameMode] = useState('life');
 
   return (
-    <div className="overflow-x-hidden relative min-h-screen">
+    <div className="overflow-x-hidden relative min-h-screen bg-base-100 text-base-content">
       <div className="relative z-10">
         <Hero gameMode={gameMode} setGameMode={setGameMode} />
         {gameMode === 'life' && (

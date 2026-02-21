@@ -20,7 +20,8 @@ export default function About() {
               <p className="mt-2 text-4xl section-title sm:text-6xl">
                 About Me
               </p>
-              <p className="mt-6 text-lg leading-8" data-aos="fade-right">
+              {/* change font color */}
+              <p className="mt-6 text-lg leading-8 text-base-content/70" data-aos="fade-right">
                 Hello, I'm Kristan Panton, a Computer Science student at Pace
                 University with a concentration in Software Engineering. I have
                 a passion for developing innovative solutions and have worked on

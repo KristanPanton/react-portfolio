@@ -251,12 +251,12 @@ const SnakeGame = ({ grid, setGrid, COLS, ROWS, score, setScore, setGameOver }) 
   return null;
 };
 
-const Instructions = ({ score, gameOver, onRestart }) => (
+const Instructions = ({ score, gameOver, onRestart, isDarkMode }) => (
   <div
     className="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-6 bg-base-100 px-8 h-14 z-20"
     style={{
-      borderTop: "2px solid black",
-      boxShadow: "0 -3px 0px 0px rgba(0,0,0,0.15)",
+      borderTop: isDarkMode ? "2px solid rgba(255,255,255,0.3)" : "2px solid black",
+      boxShadow: isDarkMode ? "0 -3px 0px 0px rgba(255,255,255,0.12)" : "0 -3px 0px 0px rgba(0,0,0,0.15)",
     }}
   >
     {gameOver ? (
@@ -271,9 +271,10 @@ const Instructions = ({ score, gameOver, onRestart }) => (
             fontSize: "0.85rem",
             fontWeight: 600,
             padding: "4px 14px",
-            border: "2px solid black",
+            border: isDarkMode ? "2px solid rgba(255,255,255,0.7)" : "2px solid black",
             borderRadius: "8px",
-            boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.85)",
+            boxShadow: isDarkMode ? "2px 2px 0px 0px rgba(255,255,255,0.55)" : "2px 2px 0px 0px rgba(0,0,0,0.85)",
+            background: "transparent",
             cursor: "pointer",
           }}
         >
@@ -417,15 +418,15 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
 
   return (
     <>
-      {gameMode === "snake" && <Instructions score={score} gameOver={gameOver} onRestart={handleRestart} />}
+      {gameMode === "snake" && <Instructions score={score} gameOver={gameOver} onRestart={handleRestart} isDarkMode={isDarkMode} />}
       <div
         className={gameMode === "snake"
           ? "fixed top-12 left-4 right-4 bottom-14 z-10 overflow-hidden"
           : "fixed inset-0 w-full h-full -z-50 pointer-events-none overflow-hidden"
         }
         style={gameMode === "snake" ? {
-          border: "2px solid black",
-          boxShadow: "5px 5px 0px 0px rgba(0,0,0,0.85)",
+          border: isDarkMode ? "2px solid rgba(255,255,255,0.3)" : "2px solid black",
+          boxShadow: isDarkMode ? "5px 5px 0px 0px rgba(255,255,255,0.55)" : "5px 5px 0px 0px rgba(0,0,0,0.85)",
           borderRadius: "12px",
         } : {}}
       >

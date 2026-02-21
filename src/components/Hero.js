@@ -20,9 +20,10 @@ const navigation = [
 ];
 
 export default function Hero() {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved === "dark" ? "dark" : "lofi";
+  });
   const [gameMode, setGameMode] = useState("life"); // Add this line
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Hero() {
     AOS.init({ duration: 2000 });
   }, []);
   const handleToggle = (e) => {
-    e.target.checked ? setTheme("dark") : setTheme("light");
+    e.target.checked ? setTheme("dark") : setTheme("lofi");
   };
 
   const handleGameModeToggle = useCallback(() => {
@@ -68,7 +69,7 @@ export default function Hero() {
           gameMode === "snake" ? "opacity-0 pointer-events-none" : ""
         }`}
         style={gameMode !== "snake" ? {
-          boxShadow: "0 4px 0px 0px rgba(0,0,0,0.15)"
+          boxShadow: theme === "dark" ? "0 4px 0px 0px rgba(255,255,255,0.12)" : "0 4px 0px 0px rgba(0,0,0,0.15)"
         } : {}}
       >
         <nav
@@ -84,8 +85,8 @@ export default function Hero() {
               duration={500}
               className="cursor-pointer -m-1.5 p-1.5"
             >
-              <img src="/logo-long.svg" alt="Kristan" className="h-8 w-auto hidden sm:block" />
-              <img src="/logo-short.svg" alt="KP" className="h-10 w-auto sm:hidden" />
+              <img src="/logo-long.svg" alt="Kristan" className="h-8 w-auto hidden sm:block dark:invert" />
+              <img src="/logo-short.svg" alt="KP" className="h-10 w-auto sm:hidden dark:invert" />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -126,7 +127,7 @@ export default function Hero() {
                 id="theme-toggle-desktop"
                 className="hidden"
                 onChange={handleToggle}
-                checked={theme === "light" ? false : true}
+                checked={theme === "dark"}
               />
 
               <SunIcon className="swap-off fill-current w-6 h-6" />
@@ -141,17 +142,17 @@ export default function Hero() {
           onClose={setMobileMenuOpen}
         >
           <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto bg-base-100 px-6 py-6 sm:max-w-sm border-l-2 border-black dark:border-white/30" style={{ boxShadow: "-4px 0 0px 0px rgba(0,0,0,0.15)" }}>
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto bg-base-100 px-6 py-6 sm:max-w-sm border-l-2 border-black dark:border-white/30" style={{ boxShadow: theme === "dark" ? "-4px 0 0px 0px rgba(255,255,255,0.12)" : "-4px 0 0px 0px rgba(0,0,0,0.15)" }}>
             <div className="flex items-center justify-between">
               <div className="-m-1.5 p-1.5 flex items-center gap-3">
-                <img src="/logo-short.svg" alt="KP" className="h-8 w-auto" />
+                <img src="/logo-short.svg" alt="KP" className="h-8 w-auto dark:invert" />
                 <label className="swap swap-rotate">
                   <input
                     type="checkbox"
                     id="theme-toggle-mobile"
                     className="hidden"
                     onChange={handleToggle}
-                    checked={theme === "light" ? false : true}
+                    checked={theme === "dark"}
                   />
                   <SunIcon className="swap-off fill-current w-6 h-6" />
                   <MoonIcon className="swap-on fill-current w-6 h-6" />
@@ -194,8 +195,8 @@ export default function Hero() {
           onClick={handleGameModeToggle}
           className="fixed top-2 right-4 z-50 font-body font-semibold text-sm px-4 py-1.5 bg-base-100 rounded-lg"
           style={{
-            border: "2px solid black",
-            boxShadow: "3px 3px 0px 0px rgba(0,0,0,0.85)",
+            border: theme === "dark" ? "2px solid rgba(255,255,255,0.7)" : "2px solid black",
+            boxShadow: theme === "dark" ? "3px 3px 0px 0px rgba(255,255,255,0.55)" : "3px 3px 0px 0px rgba(0,0,0,0.85)",
           }}
         >
           ✕ Exit

@@ -17,6 +17,10 @@
   body {
     font-family: 'Fredoka', sans-serif;
   }
+
+  [data-theme="dark"] {
+    --bc: 100% 0 0;
+  }
 }
 
 @layer components {
@@ -55,6 +59,18 @@
     box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.85);
   }
 
+  [data-theme="dark"] .comic-btn {
+    box-shadow: 3px 3px 0px 0px rgba(255, 255, 255, 0.55);
+  }
+
+  [data-theme="dark"] .comic-btn:hover {
+    box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.55);
+  }
+
+  [data-theme="dark"] .comic-btn:active {
+    box-shadow: 1px 1px 0px 0px rgba(255, 255, 255, 0.55);
+  }
+
   .section-label {
     @apply text-lg font-body font-semibold tracking-wide uppercase opacity-60;
   }
@@ -62,4 +78,12 @@
   .section-title {
     @apply font-comic tracking-wide;
   }
+}
+
+#footer-logo {
+  width: 3.6rem;
+  /* margin: 0 2px; */
+  filter: invert(1);
+  position: relative;
+  top: 2px;
 }

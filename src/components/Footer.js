@@ -1,10 +1,7 @@
 export default function Footer() {
   return (
     <div className="text-lg text-center relative isolate px-6 py-16 lg:px-8 border-t-2 border-black dark:border-white/30">
-      <div className="mb-8 flex justify-center">
-        <img src="/logo-long.svg" alt="Kristan" className="h-10 w-auto" />
-      </div>
-      <div className="mt-10 flex items-center justify-center gap-x-4">
+      <div className="flex items-center justify-center gap-x-4">
         <a
           className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
           href="https://www.linkedin.com/in/kristan-panton/"
@@ -52,8 +49,9 @@ export default function Footer() {
           </svg>
         </a>
       </div>
-      <p className="mt-3">
-        Created with ❤️ by <span className="font-bold">Kristan Panton</span>
+      <p className="mt-3 flex justify-center gap-1 flex-row">
+        Made with 💖 by&nbsp;
+        <img src="/logo-long.svg" id="footer-logo" alt="Kristan Logo" className="dark:invert" />
       </p>
       <p>Copyright © 2025 Kristan Panton. All Rights Reserved</p>
     </div>
