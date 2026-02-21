@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1100" width="100%" height="100%">
+  <defs>
+    <style>
+      .outline { 
+        stroke: #181818; 
+        stroke-width: 14; 
+        stroke-linecap: round; 
+        stroke-linejoin: round; 
+      }
+      .inner-line { 
+        stroke: #181818; 
+        stroke-width: 10; 
+        stroke-linecap: round; 
+        stroke-linejoin: round; 
+        fill: none; 
+      }
+      .skin { fill: #6A3A31; }
+      .hair { fill: #181818; }
+      .sweater { fill: #4E5155; }
+      .pants { fill: #44474B; }
+      .shoe { fill: #383A3E; }
+      .shoe-sole { fill: #2C2E32; }
+      .backpack { fill: #323438; }
+    </style>
+  </defs>
+
+  <!-- Main group applies the thick black cartoon outline to all shapes -->
+  <g class="outline">
+    
+    <!-- BACKPACK -->
+    <path class="backpack" d="M 350, 420 C 520, 420 540, 520 500, 580 C 470, 610 380, 610 350, 590 Z"/>
+
+    <!-- LEFT ARM & HAND (Background) -->
+    <path class="sweater" d="M 220, 460 C 130, 490 120, 580 150, 650 C 170, 690 220, 690 230, 650 L 250, 480 Z"/>
+    <path class="skin" d="M 150, 650 C 120, 690 140, 740 180, 740 C 220, 740 230, 690 230, 650 Z"/>
+
+    <!-- PANTS (Main body) -->
+    <path class="pants" d="M 200, 660 L 160, 850 C 190, 870 230, 880 260, 860 L 290, 750 L 320, 860 C 350, 880 390, 870 420, 850 L 400, 660 C 350, 690 250, 690 200, 660 Z"/>
+    
+    <!-- PANTS CUFFS -->
+    <path class="pants" d="M 155, 840 C 145, 870 160, 890 190, 900 C 230, 910 265, 890 265, 855 Z"/>
+    <path class="pants" d="M 315, 855 C 315, 890 350, 910 390, 900 C 420, 890 435, 870 425, 840 Z"/>
+
+    <!-- LEFT SHOE -->
+    <path class="shoe" d="M 150, 890 C 80, 890 70, 940 90, 970 L 250, 1000 C 270, 980 280, 920 260, 890 Z"/>
+    <path class="shoe-sole" d="M 85, 960 C 80, 1000 130, 1020 255, 1000 L 250, 980 L 90, 970 Z"/>
+
+    <!-- RIGHT SHOE -->
+    <path class="shoe" d="M 320, 890 C 290, 920 300, 970 320, 990 L 480, 960 C 510, 930 490, 880 430, 880 Z"/>
+    <path class="shoe-sole" d="M 315, 980 C 330, 1020 390, 1010 490, 960 L 480, 940 L 320, 990 Z"/>
+
+    <!-- SWEATER (Torso) -->
+    <path class="sweater" d="M 210, 460 C 150, 560 160, 650 180, 700 C 230, 730 370, 730 420, 700 C 440, 650 450, 560 390, 460 C 330, 480 270, 480 210, 460 Z"/>
+
+    <!-- RIGHT ARM & HAND (Foreground) -->
+    <path class="sweater" d="M 370, 460 C 450, 490 490, 570 460, 650 C 440, 680 390, 680 360, 650 C 330, 580 340, 520 350, 490 Z"/>
+    <path class="skin" d="M 360, 650 C 340, 690 350, 740 390, 750 C 430, 760 470, 730 460, 650 Z"/>
+
+    <!-- SWEATER COLLAR -->
+    <path class="sweater" d="M 230, 450 L 370, 450 C 390, 490 360, 510 300, 510 C 240, 510 210, 490 230, 450 Z"/>
+
+    <!-- HEAD & EARS -->
+    <path class="skin" d="M 180, 330 C 130, 320 120, 400 170, 410 Z"/> <!-- Left Ear -->
+    <path class="skin" d="M 435, 310 C 490, 300 500, 380 445, 390 Z"/> <!-- Right Ear -->
+    <path class="skin" d="M 180, 230 C 130, 320 130, 430 200, 470 C 250, 520 350, 520 400, 470 C 470, 430 470, 320 440, 230 Q 300, 280 180, 230 Z"/> <!-- Face -->
+
+    <!-- HAIR -->
+    <path class="hair" d="M 170, 250 L 150, 160 L 165, 90 L 135, 40 Q 240, 20 300, 35 Q 370, 15 470, 45 L 440, 90 L 455, 150 L 445, 250 Q 300, 300 170, 250 Z"/>
+  </g>
+
+  <!-- INNER LINES & DETAILS -->
+  
+  <!-- Folds on Clothes -->
+  <g class="inner-line">
+    <path d="M 200, 680 C 250, 710 350, 710 400, 680" />
+    <path d="M 220, 640 C 260, 670 340, 670 380, 640" />
+    <path d="M 210, 760 L 250, 740" />
+    <path d="M 340, 740 L 380, 760" />
+    <!-- Fingers on Hands -->
+    <path d="M 380, 740 L 385, 710 M 410, 750 L 415, 715 M 440, 740 L 440, 705" />
+    <path d="M 180, 740 L 190, 710" />
+    <!-- Ear Details -->
+    <path d="M 465, 330 C 480, 340 480, 360 465, 370" stroke-width="8"/>
+  </g>
+  <circle cx="460" cy="350" r="5" fill="#181818" />
+
+  <!-- Face Details -->
+  <!-- Left Eyebrow -->
+  <path d="M 210, 295 L 260, 315" stroke="#181818" stroke-width="16" stroke-linecap="round" />
+  <!-- Right Eyebrow -->
+  <path d="M 320, 315 L 345, 290 L 385, 300" stroke="#181818" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <!-- Eyes -->
+  <ellipse cx="240" cy="335" rx="14" ry="18" fill="#181818" />
+  <ellipse cx="350" cy="330" rx="14" ry="18" fill="#181818" />
+  <!-- Nose -->
+  <path d="M 300, 310 L 285, 370 Q 285, 390 305, 380" class="inner-line" stroke-width="12" />
+  <!-- Mouth (Smirk) -->
+  <path d="M 285, 410 C 315, 420 345, 390 365, 370 C 370, 375 360, 390 350, 390" class="inner-line" stroke-width="12" />
+
+  <!-- Shoe Laces -->
+  <g stroke="#E5E5E5" stroke-width="5" stroke-linecap="round" fill="none">
+    <!-- Left Laces -->
+    <path d="M 140, 890 Q 150, 880 160, 895" />
+    <path d="M 150, 910 Q 160, 900 170, 915" />
+    <path d="M 160, 930 Q 170, 920 180, 935" />
+    <!-- Right Laces -->
+    <path d="M 390, 900 Q 400, 890 410, 905" />
+    <path d="M 400, 920 Q 410, 910 420, 925" />
+    <path d="M 410, 940 Q 420, 930 430, 945" />
+  </g>
+</svg>
