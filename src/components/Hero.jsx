@@ -16,6 +16,7 @@ const navigation = [
   { name: "About Me", id: "about" },
   { name: "Skills", id: "skills" },
   { name: "Projects", id: "projects" },
+  { name: "Resume", id: "resume" },
   { name: "Contact Me", id: "contact" },
 ];
 

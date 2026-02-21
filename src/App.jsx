@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import Quote from "./components/Quote";
+import Resume from "./components/Resume";
 import Skills from "./components/Skills";
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
             <Skills />
             <Quote />
             <Projects />
+            <Resume />
             <Contact />
             <Footer />
           </>
