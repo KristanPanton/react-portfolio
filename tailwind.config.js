@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import aspectRatio from "@tailwindcss/aspect-ratio";
+import forms from "@tailwindcss/forms";
+import daisyui from "daisyui";
+
+export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
@@ -22,9 +26,5 @@ module.exports = {
   daisyui: {
     themes: ["lofi", "dark"],
   },
-  plugins: [
-    require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/forms"),
-    require("daisyui"),
-  ],
+  plugins: [aspectRatio, forms, daisyui],
 };

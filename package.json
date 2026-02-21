@@ -2,6 +2,7 @@
   "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@headlessui/react": "^1.7.18",
@@ -28,6 +29,6 @@
     "daisyui": "^4.9.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.4.11"
+    "vite": "^7.3.1"
   }
 }
