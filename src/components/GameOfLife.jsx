@@ -1,6 +1,102 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+
+// 5×7 pixel-art bitmaps for each letter (row 0 = top)
+const LETTERS = {
+  K: [
+    [1,0,0,0,1],
+    [1,0,0,1,0],
+    [1,0,1,0,0],
+    [1,1,0,0,0],
+    [1,0,1,0,0],
+    [1,0,0,1,0],
+    [1,0,0,0,1],
+  ],
+  R: [
+    [1,1,1,1,0],
+    [1,0,0,0,1],
+    [1,0,0,0,1],
+    [1,1,1,1,0],
+    [1,0,1,0,0],
+    [1,0,0,1,0],
+    [1,0,0,0,1],
+  ],
+  I: [
+    [1,1,1,1,1],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [1,1,1,1,1],
+  ],
+  S: [
+    [0,1,1,1,1],
+    [1,0,0,0,0],
+    [1,0,0,0,0],
+    [0,1,1,1,0],
+    [0,0,0,0,1],
+    [0,0,0,0,1],
+    [1,1,1,1,0],
+  ],
+  T: [
+    [1,1,1,1,1],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+    [0,0,1,0,0],
+  ],
+  A: [
+    [0,0,1,0,0],
+    [0,1,0,1,0],
+    [1,0,0,0,1],
+    [1,0,0,0,1],
+    [1,1,1,1,1],
+    [1,0,0,0,1],
+    [1,0,0,0,1],
+  ],
+  N: [
+    [1,0,0,0,1],
+    [1,1,0,0,1],
+    [1,0,1,0,1],
+    [1,0,0,1,1],
+    [1,0,0,0,1],
+    [1,0,0,0,1],
+    [1,0,0,0,1],
+  ],
+};
+
+const WORD = ['K','R','I','S','T','A','N'];
+const LETTER_W = 5;
+const LETTER_H = 7;
+const LETTER_GAP = 2;
+
+function buildKristanGrid(COLS, ROWS) {
+  const grid = Array.from({ length: ROWS }, () => Array(COLS).fill(false));
+  const totalCols = WORD.length * LETTER_W + (WORD.length - 1) * LETTER_GAP;
+  const startX = Math.max(0, Math.floor((COLS - totalCols) / 2));
+  // Place letters in the vertical centre
+  const startY = Math.max(0, Math.floor((ROWS - LETTER_H) / 2));
+
+  WORD.forEach((char, li) => {
+    const bitmap = LETTERS[char];
+    const originX = startX + li * (LETTER_W + LETTER_GAP);
+    bitmap.forEach((row, dy) => {
+      row.forEach((cell, dx) => {
+        const gx = originX + dx;
+        // Flip vertically: bitmap row 0 = top, but grid y=0 = bottom in 3-D
+        const gy = startY + (LETTER_H - 1 - dy);
+        if (cell && gx < COLS && gy < ROWS) {
+          grid[gy][gx] = true;
+        }
+      });
+    });
+  });
+  return grid;
+}
 
 const DotsGrid = ({ cols, rows, cellSize, isDarkMode }) => {
   const positions = useMemo(() => {
@@ -334,14 +430,58 @@ const Instructions = ({ score, gameOver, onRestart, isDarkMode }) => (
   </div>
 );
 
+// Keep the orthographic camera frustum in sync with the canvas size
+const CameraUpdater = () => {
+  const { camera, gl } = useThree();
+
+  useFrame(() => {
+    const w = gl.domElement.clientWidth;
+    const h = gl.domElement.clientHeight;
+    if (
+      camera.left !== -w / 2 ||
+      camera.right !== w / 2 ||
+      camera.top !== h / 2 ||
+      camera.bottom !== -h / 2
+    ) {
+      camera.left = -w / 2;
+      camera.right = w / 2;
+      camera.top = h / 2;
+      camera.bottom = -h / 2;
+      camera.updateProjectionMatrix();
+    }
+  });
+
+  return null;
+};
+
 // Modify the main GameOfLife component
-const GameOfLife = ({ isDarkMode, gameMode }) => {
+const GameOfLife = ({ isDarkMode, gameMode, spellTrigger = 0 }) => {
   const [grid, setGrid] = useState(null);
   const [scrollRotation, setScrollRotation] = useState(0);
   const animationFrameId = useRef(null);
+  const spellingTimeoutRef = useRef(null);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [restartKey, setRestartKey] = useState(0);
+  const containerRef = useRef(null);
+  const [containerSize, setContainerSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  // Measure the actual container element
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      if (width > 0 && height > 0) {
+        setContainerSize({ width, height });
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const handleRestart = useCallback(() => {
     setScore(0);
@@ -357,11 +497,11 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
     }
   }, [gameMode]);
 
-  // Constants
-  const DESIRED_COLS = 50; // Set desired number of columns
-  const CELL_SIZE = Math.ceil(window.innerWidth / DESIRED_COLS);
-  const COLS = Math.floor(window.innerWidth / CELL_SIZE);
-  const ROWS = Math.floor(window.innerHeight / CELL_SIZE);
+  // Constants derived from actual container size
+  const DESIRED_COLS = 50;
+  const CELL_SIZE = Math.max(1, Math.ceil(containerSize.width / DESIRED_COLS));
+  const COLS = Math.ceil(containerSize.width / CELL_SIZE) + 1;
+  const ROWS = Math.ceil(containerSize.height / CELL_SIZE) + 1;
 
   const createGrid = useCallback(() => {
     return Array(ROWS)
@@ -426,6 +566,33 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
     };
   }, [createGrid, update, gameMode]);
 
+  // Stamp KRISTAN — pause Life, display pattern, resume after 3 s
+  useEffect(() => {
+    if (spellTrigger === 0 || gameMode !== "life") return;
+
+    // Stop the Life loop
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current);
+      animationFrameId.current = null;
+    }
+    // Clear any pending resume
+    if (spellingTimeoutRef.current) clearTimeout(spellingTimeoutRef.current);
+
+    // Show the static pattern
+    setGrid(buildKristanGrid(COLS, ROWS));
+
+    // Resume Life with a fresh random grid after 3 s
+    spellingTimeoutRef.current = setTimeout(() => {
+      setGrid(createGrid().map((row) => row.map(() => Math.random() > 0.85)));
+      animationFrameId.current = requestAnimationFrame(update);
+    }, 3000);
+
+    return () => {
+      if (spellingTimeoutRef.current) clearTimeout(spellingTimeoutRef.current);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spellTrigger]);
+
   // Update the scroll listener effect
   useEffect(() => {
     const handleScroll = () => {
@@ -458,9 +625,10 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
     <>
       {gameMode === "snake" && <Instructions score={score} gameOver={gameOver} onRestart={handleRestart} isDarkMode={isDarkMode} />}
       <div
+        ref={containerRef}
         className={gameMode === "snake"
           ? "fixed top-12 left-4 right-4 bottom-14 z-10 overflow-hidden"
-          : "fixed inset-0 w-full h-full -z-50 pointer-events-none overflow-hidden"
+          : "fixed inset-0 -z-50 pointer-events-none overflow-hidden"
         }
         style={gameMode === "snake" ? {
           border: isDarkMode ? "2px solid rgba(255,255,255,0.3)" : "2px solid black",
@@ -473,14 +641,16 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         camera={{
           zoom: 1,
           position: [0, 0, 100],
-          left: -window.innerWidth / 2,
-          right: window.innerWidth / 2,
-          top: window.innerHeight / 2,
-          bottom: -window.innerHeight / 2,
+          left: -containerSize.width / 2,
+          right: containerSize.width / 2,
+          top: containerSize.height / 2,
+          bottom: -containerSize.height / 2,
           near: 0.1,
           far: 1000,
         }}
+        style={{ width: '100%', height: '100%' }}
       >
+        <CameraUpdater />
         <color
           attach="background"
           args={[isDarkMode ? "#191e24" : "#ffffff"]}

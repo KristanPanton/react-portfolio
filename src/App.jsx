@@ -10,11 +10,16 @@ import Skills from "./components/Skills";
 
 export default function App() {
   const [gameMode, setGameMode] = useState('life');
+  const [spellTrigger, setSpellTrigger] = useState(0);
+
+  const handleSpell = () => {
+    if (gameMode === 'life') setSpellTrigger((n) => n + 1);
+  };
 
   return (
     <div className="overflow-x-hidden relative min-h-screen bg-base-100 text-base-content">
       <div className="relative z-10">
-        <Hero gameMode={gameMode} setGameMode={setGameMode} />
+        <Hero gameMode={gameMode} setGameMode={setGameMode} spellTrigger={spellTrigger} onSpell={handleSpell} />
         {gameMode === 'life' && (
           <>
             <About />
@@ -23,7 +28,7 @@ export default function App() {
             <Projects />
             <Resume />
             <Contact />
-            <Footer />
+            <Footer onSpell={handleSpell} />
           </>
         )}
       </div>

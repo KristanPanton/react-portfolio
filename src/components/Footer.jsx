@@ -1,4 +1,10 @@
-export default function Footer() {
+import { useCallback } from 'react';
+
+export default function Footer({ onSpell }) {
+  const handleFooterLogoClick = useCallback(() => {
+    if (typeof onSpell === 'function') onSpell();
+  }, [onSpell]);
+
   return (
     <div className="text-lg text-center relative isolate px-6 py-16 lg:px-8 border-t-2 border-black dark:border-white/30">
       <div className="flex items-center justify-center gap-x-4">
@@ -51,7 +57,9 @@ export default function Footer() {
       </div>
       <p className="mt-3 flex justify-center gap-1 flex-row">
         Made with 💖 by&nbsp;
-        <img src="/logo-long.svg" id="footer-logo" alt="Kristan Logo" className="dark:invert" />
+        <button onClick={handleFooterLogoClick} className="cursor-pointer hover:opacity-75 transition-opacity">
+          <img src="/logo-long.svg" id="footer-logo" alt="Kristan Logo" className="dark:invert" />
+        </button>
       </p>
       <p>Copyright © 2025 Kristan Panton. All Rights Reserved</p>
     </div>

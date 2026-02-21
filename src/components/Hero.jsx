@@ -20,12 +20,15 @@ const navigation = [
   { name: "Contact Me", id: "contact" },
 ];
 
-export default function Hero() {
+export default function Hero({ gameMode, setGameMode, spellTrigger, onSpell }) {
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem("theme");
     return saved === "dark" ? "dark" : "lofi";
   });
-  const [gameMode, setGameMode] = useState("life"); // Add this line
+
+  const handleLogoClick = useCallback(() => {
+    if (typeof onSpell === 'function') onSpell();
+  }, [onSpell]);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
@@ -64,7 +67,7 @@ export default function Hero() {
 
   return (
     <div className="relative min-h-screen">
-      <GameOfLife isDarkMode={theme === "dark"} gameMode={gameMode} />
+      <GameOfLife isDarkMode={theme === "dark"} gameMode={gameMode} spellTrigger={spellTrigger} />
       <header
         className={`fixed bg-base-100 inset-x-0 top-0 z-50 transition-all duration-300 border-b-2 border-black dark:border-white/30 ${
           gameMode === "snake" ? "opacity-0 pointer-events-none" : ""
@@ -79,12 +82,12 @@ export default function Hero() {
         >
           <div className="flex lg:flex-1">
             <Link
-              to="about"
               spy={true}
               smooth={true}
               offset={50}
               duration={500}
               className="cursor-pointer -m-1.5 p-1.5"
+              onClick={handleLogoClick}
             >
               <img src="/logo-long.svg" alt="Kristan" className="h-8 w-auto hidden sm:block dark:invert" />
               <img src="/logo-short.svg" alt="KP" className="h-10 w-auto sm:hidden dark:invert" />
@@ -145,9 +148,10 @@ export default function Hero() {
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto bg-base-100 px-6 py-6 sm:max-w-sm border-l-2 border-black dark:border-white/30" style={{ boxShadow: theme === "dark" ? "-4px 0 0px 0px rgba(255,255,255,0.12)" : "-4px 0 0px 0px rgba(0,0,0,0.15)" }}>
             <div className="flex items-center justify-between">
-              <div className="-m-1.5 p-1.5 flex items-center gap-3">
+              <button className="-m-1.5 p-1.5 flex items-center gap-3 cursor-pointer" onClick={handleLogoClick}>
                 <img src="/logo-short.svg" alt="KP" className="h-8 w-auto dark:invert" />
-                <label className="swap swap-rotate">
+              </button>
+              <label className="swap swap-rotate">
                   <input
                     type="checkbox"
                     id="theme-toggle-mobile"
@@ -158,7 +162,6 @@ export default function Hero() {
                   <SunIcon className="swap-off fill-current w-6 h-6" />
                   <MoonIcon className="swap-on fill-current w-6 h-6" />
                 </label>
-              </div>
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5"
