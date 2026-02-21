@@ -7,3 +7,59 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1, h2 {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.04em;
+  }
+
+  body {
+    font-family: 'Fredoka', sans-serif;
+  }
+}
+
+@layer components {
+  .comic-card {
+    @apply border-2 border-black dark:border-white/70 rounded-xl;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.85);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  [data-theme="dark"] .comic-card {
+    box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.55);
+  }
+
+  .comic-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.85);
+  }
+
+  [data-theme="dark"] .comic-card:hover {
+    box-shadow: 6px 6px 0px 0px rgba(255, 255, 255, 0.55);
+  }
+
+  .comic-btn {
+    @apply border-2 border-black dark:border-white/70 rounded-lg font-body font-semibold;
+    box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.85);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .comic-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.85);
+  }
+
+  .comic-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 0.85);
+  }
+
+  .section-label {
+    @apply text-lg font-body font-semibold tracking-wide uppercase opacity-60;
+  }
+
+  .section-title {
+    @apply font-comic tracking-wide;
+  }
+}

@@ -25,8 +25,8 @@ export default function Skills() {
     <div className="py-12 sm:py-32" id="skills">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-lg sm:text-xl leading-7">Explore my</h2>
-          <p className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h2 className="section-label">Explore my</h2>
+          <p className="mt-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl section-title">
             Skills
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function Skills() {
           {skills.map((skill) => (
             <div
               key={skill.name}
-              className="bg-base-200 ring-2 ring-base-300 rounded-xl p-3 sm:p-4 shadow-xl"
+              className="bg-base-200 comic-card p-3 sm:p-4"
               data-aos="zoom-in"
             >
               <div className="flex items-center space-x-2 sm:space-x-3">

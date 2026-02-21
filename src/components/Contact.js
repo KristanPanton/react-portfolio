@@ -53,14 +53,14 @@ export default function Contact() {
       <ToastContainer />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-xl leading-7">Located in NY</h2>
-          <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
+          <h2 className="section-label">Located in NY</h2>
+          <p className="mt-2 text-4xl section-title sm:text-6xl">
             Let's Connect
           </p>
           <p className="mt-4 text-lg flex justify-center gap-4">
             <a
               href="mailto:kristan.e.panton@pace.edu"
-              className="btn btn-outline btn-square"
+              className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
               rel="noreferrer"
               target="_blank"
             >
@@ -76,7 +76,7 @@ export default function Contact() {
             </a>
             <a
               href="tel:914-625-7535"
-              className="btn btn-outline btn-square"
+              className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
               rel="noreferrer"
             >
               <svg
@@ -174,7 +174,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`btn btn-outline text-sm w-full ${
+              className={`btn comic-btn bg-base-100 hover:bg-base-200 font-body text-sm w-full ${
                 isSubmitting ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >

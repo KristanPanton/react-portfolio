@@ -1,9 +1,12 @@
 export default function Footer() {
   return (
-    <div className="text-lg text-center relative isolate px-6 py-24 lg:px-8">
+    <div className="text-lg text-center relative isolate px-6 py-16 lg:px-8 border-t-2 border-black dark:border-white/30">
+      <div className="mb-8 flex justify-center">
+        <img src="/logo-long.svg" alt="Kristan" className="h-10 w-auto" />
+      </div>
       <div className="mt-10 flex items-center justify-center gap-x-4">
         <a
-          className="btn btn-outline btn-square"
+          className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
           href="https://www.linkedin.com/in/kristan-panton/"
           rel="noreferrer"
           target="_blank"
@@ -18,7 +21,7 @@ export default function Footer() {
           </svg>
         </a>
         <a
-          className="btn btn-outline btn-square"
+          className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
           href="https://github.com/KristanPanton/"
           rel="noreferrer"
           target="_blank"
@@ -33,7 +36,7 @@ export default function Footer() {
           </svg>
         </a>
         <a
-          className="btn btn-outline btn-square"
+          className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
           href="mailto:kristan.panton@gmail.com"
           rel="noreferrer"
           target="_blank"

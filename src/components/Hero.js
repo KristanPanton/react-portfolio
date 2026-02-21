@@ -10,7 +10,6 @@ import "aos/dist/aos.css";
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-scroll";
 import { TypeAnimation } from "react-type-animation";
-import pfp from "../profile-pic.jpg";
 import GameOfLife from "./GameOfLife";
 
 const navigation = [
@@ -65,27 +64,29 @@ export default function Hero() {
     <div className="relative min-h-screen">
       <GameOfLife isDarkMode={theme === "dark"} gameMode={gameMode} />
       <header
-        className={`fixed bg-base-300/80 backdrop-blur-sm shadow-[0_5px_60px_-15px_rgba(0,0,0,0.3)] inset-x-0 top-0 ${
-          gameMode === "snake" ? "z-10" : "z-50"
+        className={`fixed bg-base-100 inset-x-0 top-0 z-50 transition-all duration-300 border-b-2 border-black dark:border-white/30 ${
+          gameMode === "snake" ? "opacity-0 pointer-events-none" : ""
         }`}
+        style={gameMode !== "snake" ? {
+          boxShadow: "0 4px 0px 0px rgba(0,0,0,0.15)"
+        } : {}}
       >
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <p className="-m-1.5 p-1.5 font-semibold">
-              <Link
-                to="about"
-                spy={true}
-                smooth={true}
-                offset={50}
-                duration={500}
-                className="cursor-pointer"
-              >
-                Kristan Panton
-              </Link>
-            </p>
+            <Link
+              to="about"
+              spy={true}
+              smooth={true}
+              offset={50}
+              duration={500}
+              className="cursor-pointer -m-1.5 p-1.5"
+            >
+              <img src="/logo-long.svg" alt="Kristan" className="h-8 w-auto hidden sm:block" />
+              <img src="/logo-short.svg" alt="KP" className="h-10 w-auto sm:hidden" />
+            </Link>
           </div>
           <div className="flex lg:hidden">
             <button
@@ -114,7 +115,7 @@ export default function Hero() {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
             <button
-              className="btn btn-outline btn-sm"
+              className="btn btn-sm comic-btn bg-base-100 hover:bg-base-200 font-body"
               onClick={handleGameModeToggle}
             >
               {gameMode === "life" ? "Play Snake" : "Show Life"}
@@ -140,9 +141,10 @@ export default function Hero() {
           onClose={setMobileMenuOpen}
         >
           <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto backdrop-blur-xl bg-base-100/80 px-6 py-6 sm:max-w-sm shadow-2xl">
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto bg-base-100 px-6 py-6 sm:max-w-sm border-l-2 border-black dark:border-white/30" style={{ boxShadow: "-4px 0 0px 0px rgba(0,0,0,0.15)" }}>
             <div className="flex items-center justify-between">
-              <div className="-m-1.5 p-1.5">
+              <div className="-m-1.5 p-1.5 flex items-center gap-3">
+                <img src="/logo-short.svg" alt="KP" className="h-8 w-auto" />
                 <label className="swap swap-rotate">
                   <input
                     type="checkbox"
@@ -175,7 +177,7 @@ export default function Hero() {
                       smooth={true}
                       offset={50}
                       duration={500}
-                      className="-mx-3 block rounded-lg px-3 py-2 font-semibold leading-7 btn btn-ghost text-shadow-sm"
+                      className="-mx-3 block rounded-lg px-3 py-2 font-body font-semibold leading-7 btn btn-ghost text-shadow-sm\"
                     >
                       {item.name}
                     </Link>
@@ -186,6 +188,19 @@ export default function Hero() {
           </Dialog.Panel>
         </Dialog>
       </header>
+      {/* Floating exit button — only visible in snake mode */}
+      {gameMode === "snake" && (
+        <button
+          onClick={handleGameModeToggle}
+          className="fixed top-2 right-4 z-50 font-body font-semibold text-sm px-4 py-1.5 bg-base-100 rounded-lg"
+          style={{
+            border: "2px solid black",
+            boxShadow: "3px 3px 0px 0px rgba(0,0,0,0.85)",
+          }}
+        >
+          ✕ Exit
+        </button>
+      )}
       {gameMode === "life" && (
         <div className="py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -194,30 +209,34 @@ export default function Hero() {
               data-aos="zoom-in"
             >
               <div className="grid justify-center items-center">
-                <img
-                  src={pfp}
-                  alt="Kristan Panton"
-                  className="w-72 h-72 object-cover object-top rounded-full drop-shadow-2xl"
-                />
+                <div className="relative">
+                  <div className="w-72 h-72 rounded-full bg-base-200 comic-card overflow-hidden flex items-end justify-center">
+                    <img
+                      src="/Kristan-cropped-grey.svg"
+                      alt="Kristan Panton cartoon"
+                      className="w-64 h-64 object-contain object-bottom"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="grid justify-center items-center mt-3">
                 <div className="text-center">
-                  <div className="text-2xl tracking-tight sm:text-3xl">
+                  <div className="text-xl font-body font-semibold tracking-wide uppercase opacity-60">
                     Hello, I'm
                   </div>
                 </div>
                 <div className="text-center">
-                  <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+                  <h1 className="font-comic text-5xl tracking-wide sm:text-7xl">
                     Kristan Panton
                   </h1>
-                  <p className="mt-6 text-2xl leading-8">
+                  <p className="mt-6 text-2xl font-body leading-8">
                     <TypeAnimation
                       sequence={[
-                        "I'm a Frontend Developer",
+                        "Frontend Developer",
                         2000,
-                        "I'm a UI/UX Designer",
+                        "UI/UX Designer",
                         2000,
-                        "I'm a Web Developer",
+                        "Web Developer",
                         2000,
                       ]}
                       speed={50}
@@ -234,7 +253,7 @@ export default function Hero() {
                   </div>
                   <div className="mt-10 flex items-center justify-center gap-x-4">
                     <a
-                      className="btn btn-outline btn-square"
+                      className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
                       href="https://www.linkedin.com/in/kristan-panton/"
                       rel="noreferrer"
                       target="_blank"
@@ -249,7 +268,7 @@ export default function Hero() {
                       </svg>
                     </a>
                     <a
-                      className="btn btn-outline btn-square"
+                      className="btn btn-square comic-card bg-base-100 hover:bg-base-200"
                       href="https://github.com/KristanPanton/"
                       rel="noreferrer"
                       target="_blank"

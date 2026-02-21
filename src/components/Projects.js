@@ -78,15 +78,15 @@ export default function Projects() {
   return (
     <div id="projects">
       <div className="mx-auto max-w-2xl px-6 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
-        <h2 className="text-lg leading-7">Browse my recent</h2>
-        <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
+        <h2 className="section-label">Browse my recent</h2>
+        <p className="mt-2 text-4xl section-title sm:text-6xl">
           Projects
         </p>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {visibleProjects.map((project) => (
             <div
               key={project.id}
-              className="group relative ring-2 ring-base-300 bg-base-200 rounded-2xl shadow-xl"
+              className="group relative comic-card bg-base-200 rounded-2xl"
               data-aos="flip-left"
             >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:brightness-75 duration-300 delay-100 lg:h-80 rounded-t-2xl ">
@@ -113,7 +113,7 @@ export default function Projects() {
         </div>
         <div className="mt-16 flex justify-center">
           <button
-            className="btn btn-outline"
+            className="btn comic-btn bg-base-100 hover:bg-base-200 font-body"
             onClick={() => setShowAll(!showAll)}
           >
             {showAll ? "Show Less" : "View More"}

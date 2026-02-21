@@ -16,8 +16,8 @@ export default function About() {
         <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:pr-4">
             <div className="lg:max-w-lg">
-              <h2 className="text-lg leading-7">Get to know more</h2>
-              <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
+              <h2 className="section-label">Get to know more</h2>
+              <p className="mt-2 text-4xl section-title sm:text-6xl">
                 About Me
               </p>
               <p className="mt-6 text-lg leading-8" data-aos="fade-right">
@@ -40,7 +40,7 @@ export default function About() {
           data-aos="fade-left"
         >
           <img
-            className="w-[38rem] ring-2 ring-base-300 max-w-none rounded-xl shadow-xl sm:w-[57rem]"
+            className="w-[38rem] max-w-none rounded-xl comic-card sm:w-[57rem]"
             src="/about-pic.jpg"
             alt="Person"
           />
@@ -50,7 +50,7 @@ export default function About() {
         <div className="lg:col-span-2 lg:col-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8">
           <div className="text-base leading-7">
             <div className="mt-10">
-              <h2 className="text-3xl font-bold text-center mb-6 sm:mb-10">
+              <h2 className="text-3xl section-title text-center mb-6 sm:mb-10">
                 Professional Timeline
               </h2>
               <div className="relative">
@@ -62,7 +62,7 @@ export default function About() {
                   {/* Full Stack Developer */}
                   <div className="relative" data-aos="fade-right">
                     <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
-                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                        <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -88,7 +88,7 @@ export default function About() {
                   {/* Licensed Salesperson */}
                   <div className="relative" data-aos="fade-left">
                     <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
-                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                      <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -118,7 +118,7 @@ export default function About() {
                   {/* Research Intern */}
                   <div className="relative" data-aos="fade-right">
                     <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
-                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                      <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <BriefcaseIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">
@@ -155,7 +155,7 @@ export default function About() {
                   {/* Education */}
                   <div className="relative" data-aos="fade-left">
                     <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
-                      <div className="p-3 sm:p-4 bg-base-200 rounded-lg shadow-xl ring-2 ring-base-300">
+                      <div className="p-3 sm:p-4 bg-base-200 comic-card rounded-lg">
                         <div className="flex items-center mb-2">
                           <AcademicCapIcon className="h-5 w-5 mr-2" />
                           <h3 className="text-lg font-bold">

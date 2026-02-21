@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 // Add snake-related constants
@@ -19,6 +19,7 @@ const CellsInstanced = ({
   isSnakeMode,
 }) => {
   const meshRef = useRef();
+  const outlineRef = useRef();
   const activeCells = useRef(0);
   const tempObject = new THREE.Object3D();
   const time = useRef(0);
@@ -29,170 +30,268 @@ const CellsInstanced = ({
     new Float32Array(grid.length * grid[0].length).fill(1)
   );
 
+  // 3-step toon gradient: shadow / mid / highlight
+  const gradientMap = useMemo(() => {
+    const colors = new Uint8Array([80, 160, 255]);
+    const tex = new THREE.DataTexture(colors, 3, 1, THREE.RedFormat);
+    tex.magFilter = THREE.NearestFilter;
+    tex.minFilter = THREE.NearestFilter;
+    tex.needsUpdate = true;
+    return tex;
+  }, []);
+
   useFrame((state, delta) => {
-    time.current += delta * 0.8; // Increased speed
+    time.current += delta * 0.8;
     activeCells.current = 0;
     const transitionSpeed = 5 * delta;
 
-    // Apply base rotation from scroll
-    if (meshRef.current) {
-      meshRef.current.rotation.x = scrollRotation;
-    }
+    if (meshRef.current) meshRef.current.rotation.x = scrollRotation;
+    if (outlineRef.current) outlineRef.current.rotation.x = scrollRotation;
 
     for (let y = 0; y < grid.length; y++) {
       for (let x = 0; x < grid[0].length; x++) {
         const index = y * grid[0].length + x;
-        targetOpacities.current[index] = grid[y][x] ? 1 : 0;
 
-        // Smoothly interpolate opacity
+        // Snake mode: hard on/off, no interpolation so every cell is full size
+        if (isSnakeMode) {
+          if (!grid[y][x]) continue;
+          const xPos = x * cellSize;
+          const yPos = y * cellSize;
+          tempObject.position.set(xPos, yPos, 0);
+          tempObject.rotation.set(0, 0, 0);
+          tempObject.scale.setScalar(1);
+          tempObject.updateMatrix();
+          meshRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
+          tempObject.scale.setScalar(1.35);
+          tempObject.updateMatrix();
+          outlineRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
+          activeCells.current++;
+          continue;
+        }
+
+        // Life mode: smooth fade in/out + wave animation
+        targetOpacities.current[index] = grid[y][x] ? 1 : 0;
         opacities.current[index] +=
           (targetOpacities.current[index] - opacities.current[index]) *
           transitionSpeed;
 
         if (grid[y][x] || opacities.current[index] > 0) {
-          // Changed condition
           const xPos = x * cellSize;
           const yPos = y * cellSize;
+          const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
+          const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
+          const waveZ =
+            Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
+          tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
+          tempObject.rotation.x =
+            Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
+          tempObject.rotation.y =
+            Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
 
-          // Only apply wave effects if not in snake mode
-          if (!isSnakeMode) {
-            const waveX = Math.sin(xPos * 0.01 + time.current) * 40;
-            const waveY = Math.cos(yPos * 0.01 + time.current) * 40;
-            const waveZ =
-              Math.sin(xPos * 0.015 + yPos * 0.015 + time.current) * 60;
-            tempObject.position.set(xPos, yPos, waveZ + waveX + waveY);
-            tempObject.rotation.x =
-              Math.sin(time.current * 0.8 + xPos * 0.02) * 0.3;
-            tempObject.rotation.y =
-              Math.cos(time.current * 0.8 + yPos * 0.02) * 0.3;
-          } else {
-            // Flat grid for snake mode
-            tempObject.position.set(xPos, yPos, 0);
-            tempObject.rotation.set(0, 0, 0);
-          }
+          const scale = Math.max(0.1, opacities.current[index]);
 
-          const scale = Math.max(0.1, opacities.current[index]); // Added minimum scale
+          // Main cell
           tempObject.scale.setScalar(scale);
-
           tempObject.updateMatrix();
           meshRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
+
+          // Outline: same pose, 1.35x scale — back-face fill creates border
+          tempObject.scale.setScalar(scale * 1.35);
+          tempObject.updateMatrix();
+          outlineRef.current.setMatrixAt(activeCells.current, tempObject.matrix);
+
           activeCells.current++;
         }
       }
     }
+
     meshRef.current.count = activeCells.current;
     meshRef.current.instanceMatrix.needsUpdate = true;
+    outlineRef.current.count = activeCells.current;
+    outlineRef.current.instanceMatrix.needsUpdate = true;
   });
 
+  const totalCells = grid.length * grid[0].length;
+  const meshPos = [
+    -(grid[0].length * cellSize) / 2 + cellSize / 2,
+    -(grid.length * cellSize) / 2 + cellSize / 2,
+    0,
+  ];
+
   return (
-    <instancedMesh
-      ref={meshRef}
-      args={[null, null, grid.length * grid[0].length]}
-      position={[
-        -(grid[0].length * cellSize) / 2 + cellSize / 2,
-        -(grid.length * cellSize) / 2 + cellSize / 2,
-        0,
-      ]}
-    >
-      <planeGeometry args={[cellSize - 1, cellSize - 1]} />
-      <meshStandardMaterial
-        color={isDarkMode ? "#3498db" : "#2980b9"}
-        transparent
-        opacity={isDarkMode ? 0.8 : 0.5}
-        side={THREE.DoubleSide}
-        metalness={0.2}
-        roughness={0.3}
-      />
-    </instancedMesh>
+    <>
+      {/* Black outline: back-face of a slightly larger box */}
+      <instancedMesh
+        ref={outlineRef}
+        args={[null, null, totalCells]}
+        position={meshPos}
+      >
+        <boxGeometry args={[cellSize - 1, cellSize - 1, 2]} />
+        <meshBasicMaterial color="#000000" side={THREE.BackSide} />
+      </instancedMesh>
+
+      {/* Toon-shaded cell */}
+      <instancedMesh
+        ref={meshRef}
+        args={[null, null, totalCells]}
+        position={meshPos}
+      >
+        <boxGeometry args={[cellSize - 2, cellSize - 2, 1]} />
+        <meshToonMaterial
+          color={isDarkMode ? "#27aaff" : "#1a77e8"}
+          gradientMap={gradientMap}
+          transparent
+          opacity={isDarkMode ? 0.8 : 0.55}
+        />
+      </instancedMesh>
+    </>
   );
 };
 
 // Add SnakeGame component
-const SnakeGame = ({ grid, setGrid, COLS, ROWS, score, setScore }) => {
-  const [snake, setSnake] = useState(() => {
-    const startX = Math.floor(COLS / 2);
-    const startY = Math.floor(ROWS / 2);
-    return Array(SNAKE_INITIAL_LENGTH)
+const SnakeGame = ({ grid, setGrid, COLS, ROWS, score, setScore, setGameOver }) => {
+  const snakeRef = useRef(
+    Array(SNAKE_INITIAL_LENGTH)
       .fill()
-      .map((_, i) => [startX - i, startY]);
-  });
-  const [direction, setDirection] = useState(DIRECTIONS.RIGHT);
-  const [food, setFood] = useState(() => [
+      .map((_, i) => [Math.floor(COLS / 2) - i, Math.floor(ROWS / 2)])
+  );
+  const directionRef = useRef(DIRECTIONS.RIGHT);
+  const inputQueue = useRef([]);
+  const foodRef = useRef([
     Math.floor(Math.random() * COLS),
     Math.floor(Math.random() * ROWS),
   ]);
 
+  // Key input — push to queue, never modify direction directly
   useEffect(() => {
     const handleKeyPress = (e) => {
-      switch (e.key) {
-        case "ArrowUp":
-          setDirection(DIRECTIONS.UP);
-          break;
-        case "ArrowDown":
-          setDirection(DIRECTIONS.DOWN);
-          break;
-        case "ArrowLeft":
-          setDirection(DIRECTIONS.LEFT);
-          break;
-        case "ArrowRight":
-          setDirection(DIRECTIONS.RIGHT);
-          break;
-        default:
-          break;
-      }
+      const map = {
+        ArrowUp: DIRECTIONS.UP,
+        ArrowDown: DIRECTIONS.DOWN,
+        ArrowLeft: DIRECTIONS.LEFT,
+        ArrowRight: DIRECTIONS.RIGHT,
+      };
+      const next = map[e.key];
+      if (!next) return;
+      e.preventDefault();
+      const last = inputQueue.current.length
+        ? inputQueue.current[inputQueue.current.length - 1]
+        : directionRef.current;
+      if (next[0] === -last[0] && next[1] === -last[1]) return;
+      inputQueue.current.push(next);
     };
-
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, []);
 
+  // Stable game loop
   useEffect(() => {
-    const moveSnake = () => {
-      const newSnake = [...snake];
-      const head = [
-        (snake[0][0] + direction[0] + COLS) % COLS,
-        (snake[0][1] + direction[1] + ROWS) % ROWS,
-      ];
-      newSnake.unshift(head);
+    const tick = () => {
+      if (inputQueue.current.length > 0) {
+        directionRef.current = inputQueue.current.shift();
+      }
+
+      const snake = snakeRef.current;
+      const dir = directionRef.current;
+      const food = foodRef.current;
+
+      const nextX = snake[0][0] + dir[0];
+      const nextY = snake[0][1] + dir[1];
+
+      // Wall collision
+      if (nextX < 0 || nextX >= COLS || nextY < 0 || nextY >= ROWS) {
+        clearInterval(gameInterval);
+        setGameOver(true);
+        return;
+      }
+
+      const head = [nextX, nextY];
+
+      // Self collision
+      const body = snake.slice(0, snake.length - 1);
+      if (body.some(([x, y]) => x === head[0] && y === head[1])) {
+        clearInterval(gameInterval);
+        setGameOver(true);
+        return;
+      }
+
+      const newSnake = [head, ...snake];
 
       if (head[0] === food[0] && head[1] === food[1]) {
-        setScore(prev => prev + 1);
-        setFood([
-          Math.floor(Math.random() * COLS),
-          Math.floor(Math.random() * ROWS),
-        ]);
+        setScore((prev) => prev + 1);
+        // Place food not on snake
+        const snakeSet = new Set(newSnake.map(([x, y]) => `${x},${y}`));
+        let fx, fy;
+        do {
+          fx = Math.floor(Math.random() * COLS);
+          fy = Math.floor(Math.random() * ROWS);
+        } while (snakeSet.has(`${fx},${fy}`));
+        foodRef.current = [fx, fy];
       } else {
         newSnake.pop();
       }
 
-      setSnake(newSnake);
+      snakeRef.current = newSnake;
 
-      // Update grid
       const newGrid = Array(ROWS)
         .fill()
         .map(() => Array(COLS).fill(false));
       newSnake.forEach(([x, y]) => {
         newGrid[y][x] = true;
       });
-      newGrid[food[1]][food[0]] = true;
+      newGrid[foodRef.current[1]][foodRef.current[0]] = true;
       setGrid(newGrid);
     };
 
-    const gameInterval = setInterval(moveSnake, 150);
+    const gameInterval = setInterval(tick, 100);
     return () => clearInterval(gameInterval);
-  }, [snake, direction, food, COLS, ROWS, setGrid, setScore]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [COLS, ROWS]);
 
   return null;
 };
 
-const Instructions = ({ score }) => (
-  <div className="fixed top-20 left-1/2 -translate-x-1/2 text-center bg-base-300/80 backdrop-blur-sm p-4 rounded-lg shadow-lg z-20">
-    <h2 className="text-2xl font-bold mb-2">Score: {score}</h2>
-    <div className="text-sm">
-      <p>Use arrow keys to control the snake</p>
-      <p>Collect dots to grow</p>
-      <p>Press ESC to exit</p>
-    </div>
+const Instructions = ({ score, gameOver, onRestart }) => (
+  <div
+    className="fixed bottom-0 left-0 right-0 flex items-center justify-center gap-6 bg-base-100 px-8 h-14 z-20"
+    style={{
+      borderTop: "2px solid black",
+      boxShadow: "0 -3px 0px 0px rgba(0,0,0,0.15)",
+    }}
+  >
+    {gameOver ? (
+      <>
+        <span style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.06em", fontSize: "1.4rem", lineHeight: 1 }}>
+          Game Over &nbsp;·&nbsp; {score}
+        </span>
+        <button
+          onClick={onRestart}
+          style={{
+            fontFamily: "'Fredoka', sans-serif",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+            padding: "4px 14px",
+            border: "2px solid black",
+            borderRadius: "8px",
+            boxShadow: "2px 2px 0px 0px rgba(0,0,0,0.85)",
+            cursor: "pointer",
+          }}
+        >
+          Restart
+        </button>
+        <span className="text-sm opacity-50" style={{ fontFamily: "'Fredoka', sans-serif" }}>or ESC to exit</span>
+      </>
+    ) : (
+      <>
+        <span style={{ fontFamily: "'Bangers', cursive", letterSpacing: "0.06em", fontSize: "1.5rem", lineHeight: 1 }}>
+          {score}
+        </span>
+        <span className="opacity-20" style={{ fontFamily: "'Fredoka', sans-serif", fontSize: "1.2rem" }}>|</span>
+        <span className="text-sm" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+          &#8593;&#8595;&#8592;&#8594; to move &nbsp;·&nbsp; walls &amp; self = death &nbsp;·&nbsp; ESC to exit
+        </span>
+      </>
+    )}
   </div>
 );
 
@@ -201,8 +300,23 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
   const [grid, setGrid] = useState(null);
   const [scrollRotation, setScrollRotation] = useState(0);
   const animationFrameId = useRef(null);
-  const [canvasPosition, setCanvasPosition] = useState({ x: 0, y: 0 });
   const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [restartKey, setRestartKey] = useState(0);
+
+  const handleRestart = useCallback(() => {
+    setScore(0);
+    setGameOver(false);
+    setRestartKey((k) => k + 1);
+  }, []);
+
+  // Reset game over when leaving snake mode
+  useEffect(() => {
+    if (gameMode !== "snake") {
+      setGameOver(false);
+      setScore(0);
+    }
+  }, [gameMode]);
 
   // Constants
   const DESIRED_COLS = 50; // Set desired number of columns
@@ -279,18 +393,8 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
       const scrollPos = window.scrollY;
       const maxScroll =
         document.documentElement.scrollHeight - window.innerHeight;
-      const rotation = (scrollPos / maxScroll) * Math.PI * 0.2; // Adjust multiplier for rotation amount
+      const rotation = (scrollPos / maxScroll) * Math.PI * 0.2;
       setScrollRotation(rotation);
-
-      // Update canvas position for snake mode
-      if (gameMode === 'snake') {
-        setCanvasPosition({
-          x: 0,
-          y: scrollPos
-        });
-      } else {
-        setCanvasPosition({ x: 0, y: 0 });
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -312,11 +416,19 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
   if (!grid) return null;
 
   return (
-    <div className="fixed inset-0 w-full h-full -z-50 opacity-100 pointer-events-none overflow-hidden"
-         style={{
-           transform: gameMode === 'snake' ? `translate(${canvasPosition.x}px, ${canvasPosition.y}px)` : 'none'
-         }}>
-      {gameMode === 'snake' && <Instructions score={score} />}
+    <>
+      {gameMode === "snake" && <Instructions score={score} gameOver={gameOver} onRestart={handleRestart} />}
+      <div
+        className={gameMode === "snake"
+          ? "fixed top-12 left-4 right-4 bottom-14 z-10 overflow-hidden"
+          : "fixed inset-0 w-full h-full -z-50 pointer-events-none overflow-hidden"
+        }
+        style={gameMode === "snake" ? {
+          border: "2px solid black",
+          boxShadow: "5px 5px 0px 0px rgba(0,0,0,0.85)",
+          borderRadius: "12px",
+        } : {}}
+      >
       <Canvas
         orthographic
         camera={{
@@ -334,8 +446,10 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
           attach="background"
           args={[isDarkMode ? "#191e24" : "#ffffff"]}
         />
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
+        {/* Soft ambient + strong angled directional for crisp toon shadow bands */}
+        <ambientLight intensity={0.35} />
+        <directionalLight position={[8, 12, 6]} intensity={2.2} />
+        <directionalLight position={[-6, -4, 2]} intensity={0.4} />
         <CellsInstanced
           grid={grid}
           cellSize={CELL_SIZE}
@@ -345,9 +459,10 @@ const GameOfLife = ({ isDarkMode, gameMode }) => {
         />
       </Canvas>
       {gameMode === "snake" && (
-        <SnakeGame grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} score={score} setScore={setScore} />
+        <SnakeGame key={restartKey} grid={grid} setGrid={setGrid} COLS={COLS} ROWS={ROWS} score={score} setScore={setScore} setGameOver={setGameOver} />
       )}
-    </div>
+      </div>
+    </>
   );
 };
 
