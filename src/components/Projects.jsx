@@ -5,24 +5,6 @@ import { useEffect, useState } from "react";
 const allProjects = [
   {
     id: 1,
-    name: "Get that A!",
-    href: "https://kristanpanton.itch.io/get-that-a",
-    imageSrc: "/get-that-a-screenshot (Custom).png",
-    used: "Unity, C#",
-    description:
-      "First project for CS-321 - Intro to Game Programming. Simple platformer with wall jumping.",
-  },
-  {
-    id: 2,
-    name: "Color Match!",
-    href: "https://kristanpanton.itch.io/color-match",
-    imageSrc: "/colormatch.png",
-    used: "Unity, C#",
-    description:
-      "Match the balls with their corresponding colors. WASD to move. Power up coin lets you grab (Press space).",
-  },
-  {
-    id: 3,
     name: "Elby",
     href: "",
     imageSrc: "/elby (Custom).png",
@@ -31,7 +13,17 @@ const allProjects = [
       "Mobile app for tracking mileage, logging expenses, and ensuring IRS compliance for short-term rental owners.",
   },
   {
-    id: 4,
+    id: 2,
+    name: "Sensor Monitoring System",
+    href: "",
+    imageSrc: "/sensor-monitor.png",
+    used: "Python, NumPy, Discord API",
+    description:
+      "Automated system tracking environmental data from IoT devices with real-time anomaly detection and alerts.",
+  },
+
+  {
+    id: 3,
     name: "Killer Night",
     href: "https://kristanpanton.itch.io/killer-night",
     imageSrc: "/KillerNightScreenshot (Custom).png",
@@ -40,30 +32,39 @@ const allProjects = [
       "Find the skull in each level and escape. It's gonna be a killer night.",
   },
   {
-    id: 5,
-    name: "My Digital Garden",
-    href: "https://kristans-garden.vercel.app",
-    imageSrc: "/kristans-garden (Custom).png",
-    used: "Next.js, React",
-    description: "Just a place where I'll be posting notes.",
-  },
-  {
-    id: 6,
-    name: "Sensor Monitoring System",
-    href: "",
-    imageSrc: "/sensor-monitor.png",
-    used: "Python, NumPy, Discord API",
-    description:
-      "Automated system tracking environmental data from IoT devices with real-time anomaly detection and alerts.",
-  },
-  {
-    id: 7,
+    id: 4,
     name: "The Playgrounds",
     href: "",
     imageSrc: "/playgrounds.png",
     used: "Unity, C#",
     description:
       "Pastel-styled 3D world FPS with rag doll physics, projectile weapons, and enemy waves.",
+  },
+  {
+    id: 5,
+    name: "Get that A!",
+    href: "https://kristanpanton.itch.io/get-that-a",
+    imageSrc: "/get-that-a-screenshot (Custom).png",
+    used: "Unity, C#",
+    description:
+      "First project for CS-321 - Intro to Game Programming. Simple platformer with wall jumping.",
+  },
+  {
+    id: 6,
+    name: "Color Match!",
+    href: "https://kristanpanton.itch.io/color-match",
+    imageSrc: "/colormatch.png",
+    used: "Unity, C#",
+    description:
+      "Match the balls with their corresponding colors. WASD to move. Power up coin lets you grab (Press space).",
+  },
+
+  {
+    name: "My Digital Garden",
+    href: "https://kristans-garden.vercel.app",
+    imageSrc: "/kristans-garden (Custom).png",
+    used: "Next.js, React",
+    description: "Just a place where I'll be posting notes.",
   },
 ];
 
@@ -79,9 +80,7 @@ export default function Projects() {
     <div id="projects">
       <div className="mx-auto max-w-2xl px-6 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
         <h2 className="section-label">Browse my recent</h2>
-        <p className="mt-2 text-3xl section-title sm:text-5xl">
-          Projects
-        </p>
+        <p className="mt-2 text-3xl section-title sm:text-5xl">Projects</p>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {visibleProjects.map((project) => (
             <div
