@@ -15,7 +15,7 @@ const allProjects = [
   {
     id: 2,
     name: "Elby",
-    href: "",
+    href: "https://www.linkedin.com/posts/activity-7298431573891186688-R4Kr/",
     imageSrc: "/elby (Custom).png",
     used: "React Native, Supabase, Clerk",
     description:

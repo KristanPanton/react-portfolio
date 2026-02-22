@@ -15,22 +15,32 @@ export default function About() {
       <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
         <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:pr-4">
-            <div className="comic-card bg-base-100 p-6 sm:p-8 rounded-xl" data-aos="fade-right">
+            <div
+              className="comic-card bg-base-100 p-6 sm:p-8 rounded-xl"
+              data-aos="fade-right"
+            >
               <h2 className="section-label">Get to know more</h2>
               <p className="mt-2 text-3xl section-title sm:text-5xl">
                 About Me
               </p>
               <p className="mt-6 text-base leading-7 text-base-content/70">
-                Hello, I'm Kristan Panton, a Computer Science student at Pace
-                University with a concentration in Software Engineering. I have
-                a passion for developing innovative solutions and have worked on
-                various projects ranging from mobile apps to full-stack web
-                applications. My technical skills include programming languages
-                like C, C++, Python, Java, and JavaScript, and I am proficient
-                in frameworks and technologies such as React Native, Supabase,
-                and MongoDB. I am also experienced in using tools like VS Code,
-                Git, and Unity. I am committed to continuous learning and am
-                always looking for new challenges to improve my skills.
+                I'm a recent graduate of Pace University with a concentration in
+                Software Engineering. I have a passion for developing innovative
+                solutions and have worked on various projects ranging from
+                mobile apps to full-stack web applications. I am committed to
+                continuous learning and am always looking for new challenges to
+                improve my skills.
+              </p>
+              <p className="mt-6 text-base leading-7 text-base-content/70">
+                I love traveling. I've been to 9 different countries so far and
+                I plan on adding more to the list in the future. I've seen
+                volcanoes erupt, worn an olympic medal, and have jumped out of a
+                plane. I love new experiences and pushing myself out of my
+                comfort zone.
+              </p>
+              <p className="mt-6 text-base leading-7 text-base-content/70">
+                When I'm not coding, you can find me playing video games, going
+                on hikes, reading a book, or on the climbing wall.
               </p>
             </div>
           </div>
@@ -40,8 +50,8 @@ export default function About() {
           data-aos="fade-left"
         >
           <img
-            className="w-[38rem] max-w-none rounded-xl comic-card sm:w-[57rem]"
-            src="/about-pic.jpg"
+            className="w-[38rem] max-w-none rounded-xl comic-card sm:w-[38rem]"
+            src="/photos.png"
             alt="Person"
           />
         </div>
