@@ -46,7 +46,7 @@ export default function About() {
           />
         </div>
       </div>
-      <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
+      {/* <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10">
         <div className="lg:col-span-2 lg:col-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:gap-x-8 lg:px-8">
           <div className="text-base leading-7">
             <div className="mt-10">
@@ -54,12 +54,9 @@ export default function About() {
                 Professional Timeline
               </h2>
               <div className="relative">
-                {/* Timeline line */}
                 <div className="absolute left-4 sm:left-1/2 transform sm:-translate-x-1/2 w-1 h-full bg-base-300"></div>
 
-                {/* Timeline items */}
                 <div className="space-y-8 sm:space-y-12">
-                  {/* Full Stack Developer */}
                   <div className="relative" data-aos="fade-right">
                     <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
                         <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
@@ -85,7 +82,6 @@ export default function About() {
                     </div>
                   </div>
 
-                  {/* Licensed Salesperson */}
                   <div className="relative" data-aos="fade-left">
                     <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
                       <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
@@ -115,7 +111,6 @@ export default function About() {
                     </div>
                   </div>
 
-                  {/* Research Intern */}
                   <div className="relative" data-aos="fade-right">
                     <div className="sm:ml-auto sm:w-1/2 ml-12 sm:pr-10">
                       <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
@@ -152,7 +147,6 @@ export default function About() {
                     </div>
                   </div>
 
-                  {/* Education */}
                   <div className="relative" data-aos="fade-left">
                     <div className="ml-12 sm:w-1/2 sm:pl-10 sm:ml-0">
                       <div className="p-3 sm:p-4 bg-base-100 comic-card rounded-lg">
@@ -177,7 +171,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

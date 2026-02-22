@@ -119,12 +119,12 @@ export default function Hero({ gameMode, setGameMode, spellTrigger, onSpell }) {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
-            <button
+            {/* <button
               className="btn btn-sm comic-btn bg-base-100 hover:bg-base-200 font-body"
               onClick={handleGameModeToggle}
             >
               {gameMode === "life" ? "Play Snake" : "Show Life"}
-            </button>
+            </button> */}
             <label className="swap swap-rotate">
               <input
                 type="checkbox"
@@ -227,9 +227,6 @@ export default function Hero({ gameMode, setGameMode, spellTrigger, onSpell }) {
               <div className="grid justify-center items-center mt-3">
                 <div className="comic-card bg-base-100 p-6 sm:p-8 max-w-lg rounded-xl">
                   <div className="text-center">
-                    <div className="text-base font-body font-semibold tracking-wide uppercase opacity-60">
-                      Hello, I'm
-                    </div>
                   </div>
                   <div className="text-center">
                     <h1 className="font-comic text-4xl tracking-wide sm:text-6xl">
@@ -238,11 +235,11 @@ export default function Hero({ gameMode, setGameMode, spellTrigger, onSpell }) {
                     <p className="mt-6 text-xl font-body leading-8">
                       <TypeAnimation
                         sequence={[
-                          "Frontend Developer",
+                          "Here is obligatory typing animation",
                           2000,
-                          "UI/UX Designer",
+                          "that is so popular",
                           2000,
-                          "Web Developer",
+                          "for you to enjoy",
                           2000,
                         ]}
                         speed={50}
@@ -251,11 +248,8 @@ export default function Hero({ gameMode, setGameMode, spellTrigger, onSpell }) {
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                       <p>
-                        Computer Science student at Pace University, focusing on
-                        Software Engineering. Experienced in full-stack
-                        development and passionate about creating innovative
-                        solutions using modern technologies.
-                      </p>
+                        Pace University graduate. I build apps. I enjoy full stack development, rock climbing, and travelling.
+                        </p>
                     </div>
                   </div>
                 </div>

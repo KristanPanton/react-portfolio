@@ -3,8 +3,17 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 
 const allProjects = [
-  {
+  { 
     id: 1,
+    name: "Temps Are Us, Inc.",
+    href: "https://www.temps-are-us.com/",
+    imageSrc: "/tau-logo-white.png",
+    used: "React, Node.js, Express, Supabase, Sentry",
+    description:
+      "Full-stack web application for a staffing agency, featuring job listings, candidate profiles, and an admin dashboard.",
+  },
+  {
+    id: 2,
     name: "Elby",
     href: "",
     imageSrc: "/elby (Custom).png",
@@ -13,7 +22,7 @@ const allProjects = [
       "Mobile app for tracking mileage, logging expenses, and ensuring IRS compliance for short-term rental owners.",
   },
   {
-    id: 2,
+    id: 3,
     name: "Sensor Monitoring System",
     href: "",
     imageSrc: "/sensor-monitor.png",
@@ -23,7 +32,7 @@ const allProjects = [
   },
 
   {
-    id: 3,
+    id: 4,
     name: "Killer Night",
     href: "https://kristanpanton.itch.io/killer-night",
     imageSrc: "/KillerNightScreenshot (Custom).png",
@@ -32,7 +41,7 @@ const allProjects = [
       "Find the skull in each level and escape. It's gonna be a killer night.",
   },
   {
-    id: 4,
+    id: 5,
     name: "The Playgrounds",
     href: "",
     imageSrc: "/playgrounds.png",
@@ -41,7 +50,7 @@ const allProjects = [
       "Pastel-styled 3D world FPS with rag doll physics, projectile weapons, and enemy waves.",
   },
   {
-    id: 5,
+    id: 6,
     name: "Get that A!",
     href: "https://kristanpanton.itch.io/get-that-a",
     imageSrc: "/get-that-a-screenshot (Custom).png",
@@ -50,7 +59,7 @@ const allProjects = [
       "First project for CS-321 - Intro to Game Programming. Simple platformer with wall jumping.",
   },
   {
-    id: 6,
+    id: 7,
     name: "Color Match!",
     href: "https://kristanpanton.itch.io/color-match",
     imageSrc: "/colormatch.png",
@@ -60,6 +69,7 @@ const allProjects = [
   },
 
   {
+    id: 8,
     name: "My Digital Garden",
     href: "https://kristans-garden.vercel.app",
     imageSrc: "/kristans-garden (Custom).png",

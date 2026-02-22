@@ -4,16 +4,22 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const skills = [
-  { name: "JavaScript/TypeScript", icon: CheckCircleIcon },
+  { name: "TypeScript", icon: CheckCircleIcon },
   { name: "React Native", icon: CheckCircleIcon },
-  { name: "Web Development", icon: CheckCircleIcon },
+  { name: "React", icon: CheckCircleIcon },
+  { name: "Node.js", icon: CheckCircleIcon },
+  { name: "Expo", icon: CheckCircleIcon },
+  { name: "Express", icon: CheckCircleIcon },
   { name: "Git/Version Control", icon: CheckCircleIcon },
   { name: "Python", icon: CheckCircleIcon },
   { name: "C/C++", icon: CheckCircleIcon },
   { name: "Java", icon: CheckCircleIcon },
-  { name: "MongoDB/Supabase", icon: CheckCircleIcon },
+  { name: "Supabase", icon: CheckCircleIcon },
   { name: "Unity/C#", icon: CheckCircleIcon },
-  { name: "Firebase/Express", icon: CheckCircleIcon },
+  { name: "Redis", icon: CheckCircleIcon },
+  { name: "RabbitMQ", icon: CheckCircleIcon },
+  { name: "Postman", icon: CheckCircleIcon },
+  { name: "Sentry", icon: CheckCircleIcon },
 ];
 
 export default function Skills() {
